@@ -49,7 +49,7 @@ public class UserDao extends SQLiteOpenHelper {
                 userFinded.setEmail(c.getString(c.getColumnIndex("email")));
                 userFinded.setPassword(c.getString(c.getColumnIndex("password")));
             } else{
-                userFinded = null;
+                userFinded = new User("nothing");
             }
         } finally {
             c.close();

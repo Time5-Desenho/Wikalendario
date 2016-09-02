@@ -197,7 +197,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             dao.close();
         }
 
-        if (userFinded == null)
+        if (userFinded.getUsername() == "nothing")
             return true;
         else
             return false;
@@ -313,23 +313,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-
-            if(isUsernameValid(mUsername))
+            /*if(!isUsernameValid(mUsername))
                 return true;
             else {
                 Intent goToForm = new Intent(LoginActivity.this, UserActivity.class);
                 goToForm.putExtra("username", mUsername);
                 startActivity(goToForm);
             }
+            return false;*/
+            Intent goToForm = new Intent(LoginActivity.this, UserActivity.class);
+            goToForm.putExtra("username", mUsername);
+            startActivity(goToForm);
+
             return true;
         }
 
