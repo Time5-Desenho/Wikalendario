@@ -19,6 +19,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.LoginFilter;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -186,8 +187,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private boolean isUsernameValid(String username) {
-        //TODO: Make verification if already exists the username
-        return true;
+        UserDao dao = null;
+        User userFinded;
+
+        try {
+            dao = new UserDao(this);
+            userFinded = dao.findUser(new User(username));
+        } finally {
+            dao.close();
+        }
+
+        if (userFinded == null)
+            return true;
+        else
+            return false;
     }
 
     private boolean isPasswordValid(String password) {
@@ -309,19 +322,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mUsername)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
+
+            if(isUsernameValid(mUsername))
+                return true;
+            else {
+                Intent goToForm = new Intent(LoginActivity.this, UserActivity.class);
+                goToForm.putExtra("username", mUsername);
+                startActivity(goToForm);
             }
-
-            // TODO: register the new account here.
-            Intent goToForm = new Intent(LoginActivity.this, UserActivity.class);
-            goToForm.putExtra("username", mUsername);
-            startActivity(goToForm);
-
             return true;
         }
 

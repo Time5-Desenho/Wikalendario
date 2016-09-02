@@ -34,19 +34,23 @@ public class UserDao extends SQLiteOpenHelper {
         Cursor c = null;
         User userFinded;
 
-        String sql = "SELECT * FROM Users WHERE id=?;";
+        String sql = "SELECT * FROM Users WHERE username=?";
         SQLiteDatabase db = getReadableDatabase();
 
         try {
-            c = db.rawQuery(sql, new String[] {user.getId().toString()});
+            c = db.rawQuery(sql, new String[] {user.getUsername()});
 
-            userFinded = new User();
+            if(c.moveToFirst()) {
+                userFinded = new User();
 
-            userFinded.setId(c.getLong(c.getColumnIndex("id")));
-            userFinded.setName(c.getString(c.getColumnIndex("name")));
-            userFinded.setUsername(c.getString(c.getColumnIndex("username")));
-            userFinded.setEmail(c.getString(c.getColumnIndex("email")));
-            userFinded.setPassword(c.getString(c.getColumnIndex("password")));
+                userFinded.setId(c.getLong(c.getColumnIndex("id")));
+                userFinded.setName(c.getString(c.getColumnIndex("name")));
+                userFinded.setUsername(c.getString(c.getColumnIndex("username")));
+                userFinded.setEmail(c.getString(c.getColumnIndex("email")));
+                userFinded.setPassword(c.getString(c.getColumnIndex("password")));
+            } else{
+                userFinded = null;
+            }
         } finally {
             c.close();
         }

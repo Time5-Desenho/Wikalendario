@@ -10,6 +10,13 @@ public class User {
     private String email;
     private String password;
 
+    public User(String username) {
+        this.username = username;
+    }
+
+    public User() {
+    }
+
     public Long getId() {
         return id;
     }
