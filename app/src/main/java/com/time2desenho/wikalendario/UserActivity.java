@@ -20,9 +20,9 @@ public class UserActivity extends AppCompatActivity {
         helper = new UserHelper(this);
 
         Intent intent = getIntent();
-        User user = (User) intent.getSerializableExtra("username");
-        if(user != null){
-            helper.fillForm(user);
+        String mUsername = (String) intent.getSerializableExtra("username");
+        if(mUsername != null){
+            helper.fillForm(new User(mUsername));
         }
     }
 
@@ -50,7 +50,10 @@ public class UserActivity extends AppCompatActivity {
 
                 Toast.makeText(UserActivity.this, user.getName() + " Created!", Toast.LENGTH_SHORT).show();
 
-                finish();
+                Intent goToForm = new Intent(UserActivity.this, MainActivity.class);
+                goToForm.putExtra("user", user);
+                startActivity(goToForm);
+
                 break;
         }
         return super.onOptionsItemSelected(item);
