@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".controller.FormActivity">
 
-    <item android:id="@+id/form_menu"
+    <item android:id="@+id/sigin_menu"
         android:icon="@drawable/ic_confirmar"
         app:showAsAction="always"
         android:title="OK" />
