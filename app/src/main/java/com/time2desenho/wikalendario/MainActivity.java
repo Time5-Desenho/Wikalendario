@@ -21,8 +21,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +34,10 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        
-        CSVReader.getSubjects(this, R.raw.lista);
 
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
+        database = FirebaseDatabase.getInstance();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -81,14 +84,7 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference dbRef = database.getReference("user");
-
-        User user = new User("mateus");
-        user.setId((long) 12312);
-        user.setName("mateus");
-        user.setEmail("mateusmanuel@unb.br");
-
+        /*
         dbRef.push().setValue(user);
 
         // Read from the database
@@ -108,7 +104,7 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(MainActivity.this, "Failed to read value", Toast.LENGTH_SHORT).show();
                 error.toException();
             }
-        });
+        });*/
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
@@ -135,7 +131,10 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
+            ArrayList<Subject> subjects = CSVReader.getSubjects(this, R.raw.lista);
 
+            DatabaseReference dbRef = database.getReference("subjects");
+            dbRef.setValue(subjects);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
