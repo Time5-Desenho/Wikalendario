@@ -13,15 +13,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.api.model.StringList;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,6 +43,33 @@ public class MainActivity extends AppCompatActivity
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         database = FirebaseDatabase.getInstance();
+        DatabaseReference dbRef = database.getReference("subjects");
+        dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                GenericTypeIndicator<List<Subject>> sub = new GenericTypeIndicator<List<Subject>>() {};
+                List<Subject> subjects = dataSnapshot.getValue(sub);
+
+                ListView subjectslist = (ListView) findViewById(R.id.subjects_list);
+
+                ArrayAdapter subjectAdapter = new ArrayAdapter(
+                        MainActivity.this,
+                        android.R.layout.simple_expandable_list_item_1,
+                        subjects);
+                subjectslist.setAdapter(subjectAdapter);
+
+                Toast.makeText(MainActivity.this, subjects.get(1).getName(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Toast.makeText(MainActivity.this, "Failed to read value", Toast.LENGTH_SHORT).show();
+                error.toException();
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -83,28 +115,6 @@ public class MainActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        /*
-        dbRef.push().setValue(user);
-
-        // Read from the database
-        dbRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                User value = dataSnapshot.getValue(User.class);
-
-                Toast.makeText(MainActivity.this, value.getEmail(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Toast.makeText(MainActivity.this, "Failed to read value", Toast.LENGTH_SHORT).show();
-                error.toException();
-            }
-        });*/
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {

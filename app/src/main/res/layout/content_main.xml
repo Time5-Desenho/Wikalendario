@@ -12,8 +12,9 @@
     tools:context="com.time2desenho.wikalendario.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <TextView
+    <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to Wikalendario!" />
+        android:id="@+id/subjects_list"/>
+
 </RelativeLayout>

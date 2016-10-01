@@ -9,6 +9,10 @@ public class Subject {
     private String code;
     private int numberOfCredits;
 
+    public Subject(){
+
+    }
+
     public Subject(String code, String name, int numberOfCredits){
         setCode(code);
         setName(name);
@@ -41,5 +45,10 @@ public class Subject {
         assert numberOfCredits > 0;
 
         this.numberOfCredits = numberOfCredits;
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 }
