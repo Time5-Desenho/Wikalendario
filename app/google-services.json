@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "609445316332",
+    "firebase_url": "https://wikalendario.firebaseio.com",
+    "project_id": "wikalendario",
+    "storage_bucket": "wikalendario.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:609445316332:android:715ee06cccee22c4",
+        "android_client_info": {
+          "package_name": "com.time2desenho.wikalendario"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "609445316332-25lcncutunt5au61q35n4vi5me07caa9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCf_YSkWMdotTH0n9qgbm3UVOGwKyOgLWc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
