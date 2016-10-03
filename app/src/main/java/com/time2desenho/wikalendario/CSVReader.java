@@ -24,15 +24,11 @@ public class CSVReader {
 
         while(scanner.hasNext()){
             String code = scanner.next();
-            String name = scanner.next();
-            int numberOfCredits = Integer.parseInt(scanner.next());
+            String name = scanner.next().trim();
 
-            Log.i(TAG, "Subject = " +  code + ", " + name + ", " + Integer.toString(numberOfCredits));
+            Log.i(TAG, "Subject = " +  code + ", " + name);
 
-            subjects.add(new Subject(code, name, numberOfCredits));
-
-            scanner.next();
-            scanner.next();
+            subjects.add(new Subject(code, name));
         }
 
         return subjects;
