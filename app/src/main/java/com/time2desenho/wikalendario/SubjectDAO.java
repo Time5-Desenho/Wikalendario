@@ -35,7 +35,7 @@ public class SubjectDAO extends SQLiteOpenHelper {
             Cursor c = null;
             Subject subjectFinded;
 
-            String sql = "SELECT * FROM Subjects WHERE name=?";
+            String sql = "SELECT * FROM Subjects WHERE code=?";
             SQLiteDatabase db = getReadableDatabase();
 
             try {

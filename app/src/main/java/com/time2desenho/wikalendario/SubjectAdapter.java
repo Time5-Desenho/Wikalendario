@@ -73,7 +73,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.Subjects
         Log.d(TAG, codeText);
         viewHolder.textViewCode.setText(codeText);
 
-        String nameText = "Nome: " + subject.getName();
+        String nameText = subject.getName();
         Log.d(TAG, nameText);
         viewHolder.textViewName.setText(nameText);
 
