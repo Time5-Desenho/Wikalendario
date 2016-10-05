@@ -10,8 +10,13 @@ public class Subject {
     private static final String REGEX = "\\d+";
     private static final String TAG = "Subject";
 
+    private Long id;
     private String name;
     private String code;
+
+    public Subject(){
+
+    }
 
     public Subject(String code, String name){
         setCode(code);
@@ -38,6 +43,14 @@ public class Subject {
         assert code.matches(REGEX);
 
         this.code = code;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 }
