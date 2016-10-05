@@ -69,9 +69,13 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.Subjects
     public void onBindViewHolder(final SubjectsViewHolder viewHolder, final int position){
         Subject subject = subjects.get(position);
 
-        String subjectText = subject.getCode() + " - " + subject.getName();
-        Log.d(TAG, subjectText);
-        viewHolder.textView.setText(subjectText);
+        String codeText = "Código: " + subject.getCode();
+        Log.d(TAG, codeText);
+        viewHolder.textViewCode.setText(codeText);
+
+        String nameText = "Nome: " + subject.getName();
+        Log.d(TAG, nameText);
+        viewHolder.textViewName.setText(nameText);
 
         if(subjectOnClickListener != null){
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -99,13 +103,15 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.Subjects
 
     // ViewHolder that has reference to layout views
     public class SubjectsViewHolder extends RecyclerView.ViewHolder{
-        private TextView textView;
+        private TextView textViewCode;
+        private TextView textViewName;
         private CardView cardView;
 
         public SubjectsViewHolder(View view){
             super(view);
 
-            textView = (TextView) view.findViewById(R.id.text);
+            textViewCode = (TextView) view.findViewById(R.id.text_code);
+            textViewName = (TextView) view.findViewById(R.id.text_name);
             cardView = (CardView) view.findViewById(R.id.card_view);
         }
     }

@@ -11,8 +11,22 @@
     app:cardUseCompatPadding="false"
     card_view:cardCornerRadius="2dp"
     card_view:cardElevation="6dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
     <TextView
-        android:id="@+id/text"
+        android:id="@+id/text_code"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/text_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_below="@+id/text_code"/>
+
+        </RelativeLayout>
     </android.support.v7.widget.CardView>
