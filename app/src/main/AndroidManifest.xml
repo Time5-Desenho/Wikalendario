@@ -24,11 +24,18 @@
             </intent-filter>
         </activity>
         <activity
+<<<<<<< HEAD
             android:name=".LoginActivity"
             android:label="@string/title_activity_login">
 
         </activity>
         <activity android:name=".UserActivity"></activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+=======
+            android:name=".SubjectsActivity"
+            android:label="@string/title_activity_subject"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".SubjectActivity"></activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+>>>>>>> maintain-subject
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <meta-data
             android:name="com.google.android.gms.version"
