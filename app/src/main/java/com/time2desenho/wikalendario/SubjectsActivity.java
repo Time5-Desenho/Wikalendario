@@ -3,15 +3,13 @@ package com.time2desenho.wikalendario;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.os.Parcelable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -41,7 +39,7 @@ public class SubjectsActivity extends AppCompatActivity {
 
         setSubjects(CSVReader.getSubjects(this, R.raw.lista));
 
-        setContentView(R.layout.activity_subject);
+        setContentView(R.layout.activity_subjects);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -66,6 +64,12 @@ public class SubjectsActivity extends AppCompatActivity {
             @Override
             public void onClickSubject(View view, int position){
                 Subject subject = subjects.get(position);
+
+                Intent intent = new Intent(getContext(), SubjectActivity.class);
+                intent.putExtra("name", subject.getName());
+                intent.putExtra("code", subject.getCode());
+                startActivity(intent);
+
                 Toast.makeText(getContext(),"Subject: " + subject.getCode() + ":" + subject.getName()
                         , Toast.LENGTH_SHORT).show();
             }

@@ -1,9 +1,5 @@
 package com.time2desenho.wikalendario;
 
-/**
- * Created by joao on 05/10/16.
- */
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;

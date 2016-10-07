@@ -2,9 +2,6 @@ package com.time2desenho.wikalendario;
 
 import android.util.Log;
 
-/**
- * Created by joao on 30/09/16.
- */
 public class Subject {
 
     private static final String REGEX = "\\d+";
@@ -29,7 +26,7 @@ public class Subject {
 
     public void setName(String name) {
         Log.v(TAG, "Subject name set as " + name);
-        assert name != "";
+        assert !name.equals("");
 
         this.name = name;
     }
