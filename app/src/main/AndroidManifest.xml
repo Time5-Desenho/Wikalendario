@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.time2desenho.wikalendario">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -12,7 +13,8 @@
         android:icon="@mipmap/iconb"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -24,18 +26,17 @@
             </intent-filter>
         </activity>
         <activity
-<<<<<<< HEAD
             android:name=".LoginActivity"
             android:label="@string/title_activity_login">
 
         </activity>
-        <activity android:name=".UserActivity"></activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-=======
-            android:name=".SubjectsActivity"
+        <activity android:name=".UserActivity"></activity>
+
+        <activity android:name=".SubjectActivity"></activity>
+        <activity android:name=".SubjectsActivity"
             android:label="@string/title_activity_subject"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SubjectActivity"></activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
->>>>>>> maintain-subject
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <meta-data
             android:name="com.google.android.gms.version"

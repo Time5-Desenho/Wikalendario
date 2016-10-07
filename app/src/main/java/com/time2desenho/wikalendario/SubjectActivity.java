@@ -17,8 +17,9 @@ import static com.time2desenho.wikalendario.R.string.show_code;
 
 public class SubjectActivity extends AppCompatActivity {
 
-    Subject subject;
-    TextView codeView;
+    private Subject subject;
+    private TextView codeView;
+    private TextView nameView;
 
     private GoogleApiClient client;
 
@@ -33,14 +34,18 @@ public class SubjectActivity extends AppCompatActivity {
 
         subject = new Subject(code, name);
         codeView = (TextView) findViewById(R.id.text_code);
+        nameView = (TextView) findViewById(R.id.text_name);
 
         String text = getResources().getString(show_code) + code;
         codeView.setText(text);
+
+        text = "Nome: " + name;
+        nameView.setText(text);
         //    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //    setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
-        actionBar.setTitle(subject.getName());
+        actionBar.setTitle("Disciplina");
 
 
         Log.d("SubjectShow", subject.getName());

@@ -1,12 +1,6 @@
 package com.time2desenho.wikalendario;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.support.annotation.NonNull;
-import android.widget.Toast;
+import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,6 +10,7 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SubjectDAO {
 
@@ -23,17 +18,27 @@ public class SubjectDAO {
     private FirebaseDatabase database;
 
     public SubjectDAO(){
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-
         database = FirebaseDatabase.getInstance();
         DatabaseReference dbRef = database.getReference("subjects");
+
+        Log.d("EHHH", "Passou");
         dbRef.addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                GenericTypeIndicator<ArrayList<Subject>> sub = new GenericTypeIndicator<ArrayList<Subject>>() {};
-                setSubjects(dataSnapshot.getValue(sub));
+                Log.d("EHHH", "Macarena");
+                GenericTypeIndicator<List<Subject>> sub = new GenericTypeIndicator<List<Subject>>() {};
+                List<Subject> s = dataSnapshot.getValue(sub);
+                for(Subject joao : s){
+                    Log.d("EHH", "Joao " + joao.getCode()+ " " + joao.getName());
+                }
+                setSubjects((ArrayList<Subject>) dataSnapshot.getValue(sub));
+                Log.d("EHHH", "Macarena");
+                for(Subject c : subjects){
+                    Log.d("EHHH", "Disciplina:\nCódigo: " + c.getCode() + "\nNome: " + c.getName());
+                }
             }
 
             @Override
@@ -50,10 +55,18 @@ public class SubjectDAO {
     }
 
     public ArrayList<Subject> getSubjects() {
+        assert subjects != null;
+        for(Subject c : subjects){
+            Log.d("EHHHH", "onepunch " + c.getName());
+        }
         return subjects;
     }
 
     public void setSubjects(ArrayList<Subject> subjects) {
+        Log.d("SET", "USei");
+        for(Subject c : subjects){
+            Log.d("EHHH", "Aff " + c.getName());
+        }
         this.subjects = subjects;
     }
 

@@ -10,6 +10,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -30,7 +31,7 @@ public class SubjectsActivity extends AppCompatActivity {
     private ArrayList<Subject> subjects;
     protected RecyclerView recyclerView;
     private final Context context = this;
-    private SubjectDAO subjectDAO = new SubjectDAO();
+    private SubjectDAO subjectDAO;
 
     public ArrayList<Subject> getSubjects() {
         return subjects;
@@ -53,6 +54,11 @@ public class SubjectsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(R.string.subjects);
+
+        setSubjects(CSVReader.getSubjects(this, R.raw.lista));
+
+//        subjectDAO = new SubjectDAO();
+//        setSubjects(subjectDAO.getSubjects());
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
