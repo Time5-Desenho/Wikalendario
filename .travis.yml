@@ -5,4 +5,4 @@ android:
   # use the latest revision of Android SDK Tools
   - platform-tools
   - tools
-  - build-tools-18.1.1
+  - build-tools-24.0.1
