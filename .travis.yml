@@ -12,3 +12,7 @@ android:
 
     script:
         - chmod +x ./gradlew
+
+    branches:
+      only:
+      - integration
