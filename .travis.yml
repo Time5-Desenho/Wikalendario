@@ -1,1 +1,7 @@
 language: android
+# gradle.
+before_script:
+  - chmod +x gradlew
+
+  script:
+    - ./gradlew assembleRelease --stacktrace
