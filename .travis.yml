@@ -1,4 +1,7 @@
 language: android
+
+jdk: oraclejdk7
+
 android:
   components:
   # Uncomment the lines below if you want to
@@ -8,3 +11,4 @@ android:
   - build-tools-24.0.1
   - android-18
   - extra
+  script: ./gradlew connectedAndroidTest
