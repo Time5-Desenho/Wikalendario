@@ -2,7 +2,6 @@ android:
   components:
     # Update Android SDK Tools
     - tools
-
     - build-tools-23.0.1
     - android-23
 
