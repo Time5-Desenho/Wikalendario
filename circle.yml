@@ -9,4 +9,4 @@ machine:
   dependencies:
     pre:
       - echo y | android update sdk --no-ui --all --filter "tools"
-      - echo y | android update sdk --no-ui --all --filter "build-tools-24.0.0"
+      - echo y | android update sdk --no-ui --all --filter "build-tools-24.0.1"
