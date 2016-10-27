@@ -1,5 +1,6 @@
 package com.time2desenho.wikalendario;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -33,43 +34,14 @@ public class MainActivity extends AppCompatActivity
 
     private FirebaseDatabase database;
 
+    private static final String TAG = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-
-        database = FirebaseDatabase.getInstance();
-        DatabaseReference dbRef = database.getReference("subjects");
-        dbRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                GenericTypeIndicator<List<Subject>> sub = new GenericTypeIndicator<List<Subject>>() {};
-                List<Subject> subjects = dataSnapshot.getValue(sub);
-
-                ListView subjectslist = (ListView) findViewById(R.id.subjects_list);
-
-                ArrayAdapter subjectAdapter = new ArrayAdapter(
-                        MainActivity.this,
-                        android.R.layout.simple_expandable_list_item_1,
-                        subjects);
-                subjectslist.setAdapter(subjectAdapter);
-
-                Toast.makeText(MainActivity.this, subjects.get(1).getName(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Toast.makeText(MainActivity.this, "Failed to read value", Toast.LENGTH_SHORT).show();
-                error.toException();
-            }
-        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -130,8 +102,9 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
+        if (id == R.id.subjects) {
+            Intent intent = new Intent(this, SubjectsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -141,10 +114,6 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-            ArrayList<Subject> subjects = CSVReader.getSubjects(this, R.raw.lista);
-
-            DatabaseReference dbRef = database.getReference("subjects");
-            dbRef.setValue(subjects);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

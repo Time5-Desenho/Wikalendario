@@ -1,22 +1,23 @@
 package com.time2desenho.wikalendario;
 
-/**
- * Created by joao on 30/09/16.
- */
+import android.util.Log;
+
 public class Subject {
 
+    private static final String REGEX = "\\d+";
+    private static final String TAG = "Subject";
+
+    private Long id;
     private String name;
     private String code;
-    private int numberOfCredits;
 
     public Subject(){
 
     }
 
-    public Subject(String code, String name, int numberOfCredits){
+    public Subject(String code, String name){
         setCode(code);
         setName(name);
-        setNumberOfCredits(numberOfCredits);
     }
 
     public String getName() {
@@ -24,7 +25,8 @@ public class Subject {
     }
 
     public void setName(String name) {
-        assert name != "";
+        Log.v(TAG, "Subject name set as " + name);
+        assert !name.equals("");
 
         this.name = name;
     }
@@ -34,17 +36,18 @@ public class Subject {
     }
 
     public void setCode(String code) {
+        Log.v(TAG, "Subject code set as " + code);
+        assert code.matches(REGEX);
+
         this.code = code;
     }
 
-    public int getNumberOfCredits() {
-        return numberOfCredits;
+    public Long getId() {
+        return id;
     }
 
-    public void setNumberOfCredits(int numberOfCredits) {
-        assert numberOfCredits > 0;
-
-        this.numberOfCredits = numberOfCredits;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
