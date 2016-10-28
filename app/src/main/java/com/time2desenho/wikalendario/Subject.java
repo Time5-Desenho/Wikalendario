@@ -2,22 +2,20 @@ package com.time2desenho.wikalendario;
 
 import android.util.Log;
 
-public class Subject {
+public class Subject extends Class {
 
     private static final String REGEX = "\\d+";
     private static final String TAG = "Subject";
 
-    private Long id;
+    private Long idSubject;
     private String name;
     private String code;
 
-    public Subject(){
-
-    }
-
-    public Subject(String code, String name){
-        setCode(code);
-        setName(name);
+    public Subject(Long idClass, String letter, String teacher, Long idSubject, String name, String code) {
+        super(idClass, letter, teacher);
+        this.idSubject = idSubject;
+        this.name = name;
+        this.code = code;
     }
 
     public String getName() {
@@ -42,12 +40,12 @@ public class Subject {
         this.code = code;
     }
 
-    public Long getId() {
-        return id;
+    public Long getIdSubject() {
+        return idSubject;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdSubject(Long idSubject) {
+        this.idSubject = idSubject;
     }
 
     @Override
