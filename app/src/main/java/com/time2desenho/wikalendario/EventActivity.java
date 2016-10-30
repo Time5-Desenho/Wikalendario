@@ -10,21 +10,18 @@ import java.util.Date;
 
 public class EventActivity extends AppCompatActivity implements View.OnClickListener {
 
-    // Attributes.
-    private String eventTitle;
-    private String eventDescription;
-    private String eventSubject;
-    private Date eventDate;
-
     // Variables to this class.
     private EditText etEventTitle;
     private EditText etEventDescription;
-    private EditText etEventSubject;
-    private EditText etEventDate;
+    private EditText etEventClass;
+    private EditText etEventDate = null;
     private Button eventCreate;
+
+    private Event event;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        event = new Event();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
         init();
@@ -33,55 +30,26 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
     private void init() {
         etEventTitle = (EditText)findViewById(R.id.eventTitle);
         etEventDescription = (EditText)findViewById(R.id.eventDescription);
-        etEventSubject = (EditText)findViewById(R.id.eventSubject);
-        //etEventDate = (EditText)findViewById(R.id.eventDate);
+        etEventClass = (EditText)findViewById(R.id.eventClass);
+        etEventDate = (EditText)findViewById(R.id.eventDate);
 
         eventCreate = (Button)findViewById(R.id.eventCreate);
 
         eventCreate.setOnClickListener(this);
     }
 
-
+    @Override
     public void onClick(View view) {
-        setEventTitle(etEventTitle.getText().toString());
-        setEventDescription(etEventDescription.getText().toString());
-        setEventSubject(etEventSubject.getText().toString());
+        event.setEventTitle(etEventTitle.getText().toString());
+        event.setEventDescription(etEventDescription.getText().toString());
+        event.setEventClass(etEventClass.getText().toString());
 
-        //eventDate = new Date(etEventDate.getText().toString());
+        //Date auxDate = new Date(etEventDate.getText().toString());
+        //event.setEventDate(auxDate);
 
-        //System.out.println(getEventTitle() + "\n" + getEventDescription() + "\n" + getEventSubject() + "\n" + getEventDate());
-        System.out.println(getEventTitle() + "\n" + getEventDescription() + "\n" + getEventSubject());
+        //System.out.println(event.getEventTitle() + "\n" + event.getEventDescription() + "\n" +
+        //        event.getEventClass() + "\n" + event.getEventDate());
+        System.out.println(event.getEventTitle() + "\n" + event.getEventDescription() + "\n" + event.getEventClass());
     }
 
-    public String getEventTitle() {
-        return eventTitle;
-    }
-
-    public void setEventTitle(String eventTitle) {
-        this.eventTitle = eventTitle;
-    }
-
-    public String getEventDescription() {
-        return eventDescription;
-    }
-
-    public void setEventDescription(String eventDescription) {
-        this.eventDescription = eventDescription;
-    }
-
-    public String getEventSubject() {
-        return eventSubject;
-    }
-
-    public void setEventSubject(String eventSubject) {
-        this.eventSubject = eventSubject;
-    }
-
-    public Date getEventDate() {
-        return eventDate;
-    }
-
-    public void setEventDate(Date eventDate) {
-        this.eventDate = eventDate;
-    }
 }

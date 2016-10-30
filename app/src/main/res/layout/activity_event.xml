@@ -42,12 +42,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Disciplina"
+        android:text="Classe"
         android:ems="10"
         android:layout_below="@+id/eventDescription"
         android:layout_alignStart="@+id/eventDescription"
         android:layout_marginTop="30dp"
-        android:id="@+id/eventSubject" />
+        android:id="@+id/eventClass" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -55,8 +55,8 @@
         android:inputType="date"
         android:text="aaaa-mm-dd"
         android:ems="10"
-        android:layout_below="@+id/eventSubject"
-        android:layout_alignStart="@+id/eventSubject"
+        android:layout_below="@+id/eventClass"
+        android:layout_alignStart="@+id/eventClass"
         android:layout_marginTop="30dp"
         android:id="@+id/eventDate" />
 
