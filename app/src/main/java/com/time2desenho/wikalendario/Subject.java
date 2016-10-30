@@ -11,6 +11,11 @@ public class Subject extends Class {
     private String name;
     private String code;
 
+    public Subject(String code, String name) {
+        setCode(code);
+        setName(name);
+    }
+
     public Subject(Long idClass, String letter, String teacher, Long idSubject, String name, String code) {
         super(idClass, letter, teacher);
         this.idSubject = idSubject;

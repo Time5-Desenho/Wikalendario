@@ -8,10 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 
-/**
- * Created by renata on 28/10/16.
- */
-
 public class ClassDAO extends SQLiteOpenHelper {
 
     protected static String TABLE = "CLASS";

@@ -2,9 +2,6 @@ package com.time2desenho.wikalendario;
 
 import java.io.Serializable;
 
-/**
- * Created by renata on 9/1/16.
- */
 public class User implements Serializable {
     private Long id;
     private String name;

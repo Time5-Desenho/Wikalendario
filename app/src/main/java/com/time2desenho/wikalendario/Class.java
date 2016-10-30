@@ -1,14 +1,14 @@
 package com.time2desenho.wikalendario;
 
-/**
- * Created by renata on 28/10/16.
- */
-
 public class Class {
 
     private Long idClass;
     private String letter;
     private String teacher;
+
+    public Class(){
+
+    }
 
     public Class(Long idClass, String letter, String teacher) {
         this.idClass = idClass;
