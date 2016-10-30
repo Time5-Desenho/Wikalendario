@@ -2,6 +2,9 @@ package com.time2desenho.wikalendario;
 
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Subject extends Class {
 
     private static final String REGEX = "\\d+";
@@ -9,6 +12,7 @@ public class Subject extends Class {
 
     private Long idSubject;
     private String name;
+    private List<Class> classes = new ArrayList<>();
     private String code;
 
     public Subject(String code, String name) {
@@ -22,6 +26,11 @@ public class Subject extends Class {
         this.name = name;
         this.code = code;
     }
+
+    public void addClass(Class classUnity){
+        this.classes.add(classUnity);
+    }
+
 
     public String getName() {
         return name;
