@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.EventLog;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -89,8 +90,9 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.subjects) {
             Intent intent = new Intent(this, SubjectsActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_gallery) {
-
+        } else if (id == R.id.activity_event) {
+            Intent intent2 = new Intent(this, EventActivity.class);
+            startActivity(intent2);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
