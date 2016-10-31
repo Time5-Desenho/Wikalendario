@@ -21,24 +21,15 @@ public class SubjectDAO {
         database = FirebaseDatabase.getInstance();
         DatabaseReference dbRef = database.getReference("subjects");
 
-        Log.d("EHHH", "Passou");
         dbRef.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                Log.d("EHHH", "Macarena");
                 GenericTypeIndicator<List<Subject>> sub = new GenericTypeIndicator<List<Subject>>() {};
                 List<Subject> s = dataSnapshot.getValue(sub);
-                for(Subject joao : s){
-                    Log.d("EHH", "Joao " + joao.getCode()+ " " + joao.getName());
-                }
                 setSubjects((ArrayList<Subject>) dataSnapshot.getValue(sub));
-                Log.d("EHHH", "Macarena");
-                for(Subject c : subjects){
-                    Log.d("EHHH", "Disciplina:\nCódigo: " + c.getCode() + "\nNome: " + c.getName());
-                }
             }
 
             @Override
@@ -56,17 +47,10 @@ public class SubjectDAO {
 
     public ArrayList<Subject> getSubjects() {
         assert subjects != null;
-        for(Subject c : subjects){
-            Log.d("EHHHH", "onepunch " + c.getName());
-        }
         return subjects;
     }
 
     public void setSubjects(ArrayList<Subject> subjects) {
-        Log.d("SET", "USei");
-        for(Subject c : subjects){
-            Log.d("EHHH", "Aff " + c.getName());
-        }
         this.subjects = subjects;
     }
 

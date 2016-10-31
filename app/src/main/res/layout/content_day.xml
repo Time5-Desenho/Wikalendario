@@ -13,4 +13,13 @@
     tools:context="com.time2desenho.wikalendario.DayActivity"
     tools:showIn="@layout/activity_day">
 
+    <android.support.v7.widget.RecyclerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/recyclerEventView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        />
+
+
 </RelativeLayout>

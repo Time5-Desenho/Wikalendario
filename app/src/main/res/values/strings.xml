@@ -125,5 +125,6 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="subjects">Disciplinas</string>
+    <string name="events_day">Eventos do dia</string>
     <string name="title_activity_day">DayActivity</string>
 </resources>

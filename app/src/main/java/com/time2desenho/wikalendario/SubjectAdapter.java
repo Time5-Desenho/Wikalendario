@@ -12,9 +12,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by joao on 03/10/16.
- */
 public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectsViewHolder> {
 
     private Context context;
