@@ -17,8 +17,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.roomorama.caldroid.CaldroidFragment;
+import com.roomorama.caldroid.CaldroidListener;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -66,6 +68,20 @@ public class MainActivity extends AppCompatActivity
 
         Drawable drawable = new ColorDrawable(Color.YELLOW);
         caldroidFragment.setBackgroundDrawableForDate(drawable, date);
+
+        final CaldroidListener listener = new CaldroidListener() {
+
+            @Override
+            public void onSelectDate(Date date, View view) {
+                Toast.makeText(getApplicationContext(), date.toString(),
+                        Toast.LENGTH_SHORT).show();
+            }
+
+
+        };
+
+        caldroidFragment.setCaldroidListener(listener);
+
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
         t.replace(R.id.calendar1, caldroidFragment);
         t.commit();
