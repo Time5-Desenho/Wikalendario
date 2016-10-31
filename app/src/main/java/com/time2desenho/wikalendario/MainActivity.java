@@ -1,5 +1,6 @@
 package com.time2desenho.wikalendario;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -26,15 +27,21 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import static java.security.AccessController.getContext;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "MainActivity";
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        context = this;
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -75,6 +82,11 @@ public class MainActivity extends AppCompatActivity
             public void onSelectDate(Date date, View view) {
                 Toast.makeText(getApplicationContext(), date.toString(),
                         Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getContext(), DayActivity.class);
+                intent.putExtra("date", date);
+
+                startActivity(intent);
             }
 
 
@@ -85,6 +97,10 @@ public class MainActivity extends AppCompatActivity
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
         t.replace(R.id.calendar1, caldroidFragment);
         t.commit();
+    }
+
+    public Context getContext(){
+        return context;
     }
 
     @Override
