@@ -2,9 +2,6 @@ package com.time2desenho.wikalendario;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -18,16 +15,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.roomorama.caldroid.CaldroidFragment;
-import com.roomorama.caldroid.CaldroidListener;
-
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-
-import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -63,40 +52,14 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        CaldroidFragment caldroidFragment = new CaldroidFragment();
-        Bundle args = new Bundle();
-        Calendar cal = Calendar.getInstance();
-        args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
-        args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
-        caldroidFragment.setArguments(args);
-
-        GregorianCalendar g = new GregorianCalendar(2016, 6, 27);
-        Date date = g.getTime();
-
-        Drawable drawable = new ColorDrawable(Color.YELLOW);
-        caldroidFragment.setBackgroundDrawableForDate(drawable, date);
-
-        final CaldroidListener listener = new CaldroidListener() {
-
-            @Override
-            public void onSelectDate(Date date, View view) {
-                Toast.makeText(getApplicationContext(), date.toString(),
-                        Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(getContext(), DayActivity.class);
-                intent.putExtra("date", date);
-
-                startActivity(intent);
-            }
-
-
-        };
-
-        caldroidFragment.setCaldroidListener(listener);
+        //Fragment do calendario
+        CalendarBuilder calendarBuilder = new FullCalendarBuilder();
+        CaldroidFragment caldroidFragment = calendarBuilder.createCalendarFragment(getContext());
 
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
         t.replace(R.id.calendar1, caldroidFragment);
         t.commit();
+        //Fragment do calendario
     }
 
     public Context getContext(){
