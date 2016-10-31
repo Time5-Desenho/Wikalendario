@@ -12,12 +12,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubjectDAO {
+public class SubjectDatabaseHelper {
 
     private ArrayList<Subject> subjects;
     private FirebaseDatabase database;
 
-    public SubjectDAO(){
+    public SubjectDatabaseHelper(){
         database = FirebaseDatabase.getInstance();
         DatabaseReference dbRef = database.getReference("subjects");
 

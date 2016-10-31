@@ -1,12 +1,26 @@
 package com.time2desenho.wikalendario;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.io.Serializable;
 
+@DatabaseTable(tableName = "users")
 public class User implements Serializable {
+
+    @DatabaseField(generatedId = true)
     private Long id;
+
+    @DatabaseField
     private String name;
+
+    @DatabaseField
     private String username;
+
+    @DatabaseField
     private String email;
+
+    @DatabaseField
     private String password;
 
     public User(String username) {

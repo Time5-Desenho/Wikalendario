@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 
-public class EventGroupDAO extends SQLiteOpenHelper {
+public class EventGroupDatabaseHelper extends SQLiteOpenHelper {
 
 
     protected static String TABLE = "EVENTCLASS";
@@ -19,11 +19,11 @@ public class EventGroupDAO extends SQLiteOpenHelper {
     protected static String COLUMN_DATE="date";
 
 
-    public EventGroupDAO(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public EventGroupDatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
-    public EventGroupDAO(Context context, String name, SQLiteDatabase.CursorFactory factory, int version, DatabaseErrorHandler errorHandler) {
+    public EventGroupDatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version, DatabaseErrorHandler errorHandler) {
         super(context, name, factory, version, errorHandler);
     }
 

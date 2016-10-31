@@ -8,6 +8,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.j256.ormlite.dao.Dao;
+
+import java.sql.SQLException;
+
 public class UserActivity extends AppCompatActivity {
 
     private UserHelper helper;
@@ -40,13 +44,14 @@ public class UserActivity extends AppCompatActivity {
             case R.id.sigin_menu:
                 User user = helper.getUser();
 
-                UserDao dao = new UserDao(this);
-                if(user.getId() != null){
-                    dao.update(user);
-                } else {
-                    dao.insert(user);
+                UserDatabaseHelper userDatabaseHelper = new UserDatabaseHelper(this);
+
+                try {
+                    Dao<User, Long> userDAO = userDatabaseHelper.getDAO();
+                    userDAO.createOrUpdate(user);
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
-                dao.close();
 
                 Toast.makeText(UserActivity.this, user.getName() + " Created!", Toast.LENGTH_SHORT).show();
 
