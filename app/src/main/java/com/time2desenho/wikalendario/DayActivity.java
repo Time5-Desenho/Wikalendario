@@ -19,7 +19,8 @@ import java.util.Date;
 
 public class DayActivity extends AppCompatActivity {
 
-    private ArrayList<Event> events;
+    private ArrayList<EventClass> eventClasses;
+    private ArrayList<EventGroup> eventGroups;
     protected RecyclerView recyclerView;
     private final Context context = this;
     //private EventDAO eventDAO;
@@ -49,9 +50,13 @@ public class DayActivity extends AppCompatActivity {
         Date date = (Date) intent.getSerializableExtra("date");
 
         //TODO: Place real events
-        events = new ArrayList<>();
-        events.add(new Event("Evento1", "Teste1", "Turma1", date));
-        events.add(new Event("Evento2", "Teste2", "Turma2", date));
+        eventClasses = new ArrayList<>();
+        eventClasses.add(new EventClass("EventoC1", "Teste1", "Turma1", "01/10/2016"));
+        eventClasses.add(new EventClass("EventoC2", "Teste2", "Turma2", "02/10/2016"));
+
+        eventGroups= new ArrayList<>();
+        eventGroups.add(new EventGroup("EventoG1", "Teste1", "Turma1", "01/10/2016"));
+        eventGroups.add(new EventGroup("EventoG2", "Teste2", "Turma2", "02/10/2016"));
 
         //ClassReader.getEvents(this, R.raw.turma);
 
@@ -67,12 +72,20 @@ public class DayActivity extends AppCompatActivity {
 
 
 
-    public ArrayList<Event> getEvents() {
-        return events;
+    public ArrayList<EventClass> getEventClasses() {
+        return eventClasses;
     }
 
-    public void setEvents(ArrayList<Event> events) {
-        this.events = events;
+    public void setEventClasses(ArrayList<EventClass> eventClasses) {
+        this.eventClasses = eventClasses;
+    }
+
+    public ArrayList<EventGroup> getEventGroups() {
+        return eventGroups;
+    }
+
+    public void setEventGroups(ArrayList<EventGroup> eventGroups) {
+        this.eventGroups = eventGroups;
     }
 
     public Context getContext(){
@@ -82,23 +95,23 @@ public class DayActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        recyclerView.setAdapter(new EventAdapter(this, events, onClickEvent()));
+        recyclerView.setAdapter(new EventAdapter(this, eventClasses, onClickEvent()));
     }
 
     public EventAdapter.EventOnClickListener onClickEvent(){
         return new EventAdapter.EventOnClickListener(){
             @Override
             public void onClickEvent(View view, int position){
-                Event event = events.get(position);
+                EventClass eventClass = eventClasses.get(position);
 
                 Intent intent = new Intent(getContext(), EventActivity.class);
-                intent.putExtra("title", event.getEventTitle());
-                intent.putExtra("description", event.getEventDescription());
-                intent.putExtra("date", event.getEventDate());
+                intent.putExtra("title", eventClass.getEventClassTitle());
+                intent.putExtra("description", eventClass.getEventClassDescription());
+                intent.putExtra("date", eventClass.getEventClassDate());
 
                 startActivity(intent);
 
-                Toast.makeText(getContext(),"Event: " + event.getEventTitle() + ":" + event.getEventDescription()
+                Toast.makeText(getContext(),"Event: " + eventClass.getEventClassTitle() + ":" + eventClass.getEventClassDescription()
                         , Toast.LENGTH_SHORT).show();
             }
         };

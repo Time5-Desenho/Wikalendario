@@ -14,7 +14,8 @@ import java.util.ArrayList;
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventsViewHolder> {
 
     private Context context;
-    private ArrayList<Event> events;
+    private ArrayList<EventClass> eventClasses;
+    private ArrayList<EventGroup> eventGroups;
     private EventAdapter.EventOnClickListener eventOnClickListener;
 
     private final String TAG = "EventAdapter";
@@ -27,12 +28,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventsViewHo
         this.context = context;
     }
 
-    public ArrayList<Event> getEvents() {
-        return events;
+    public ArrayList<EventClass> getEventClasses() {
+        return eventClasses;
     }
 
-    public void setEvents(ArrayList<Event> events) {
-        this.events = events;
+    public void setEvents(ArrayList<EventClass> eventClasses) {
+        this.eventClasses = eventClasses;
     }
 
     public EventAdapter.EventOnClickListener getEventOnClickListener() {
@@ -43,17 +44,17 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventsViewHo
         this.eventOnClickListener = eventOnClickListener;
     }
 
-    public EventAdapter(Context context, ArrayList<Event> events, EventAdapter.EventOnClickListener eventOnClickListener){
+    public EventAdapter(Context context, ArrayList<EventClass> eventClasses, EventAdapter.EventOnClickListener eventOnClickListener){
         setContext(context);
-        setEvents(events);
+        setEvents(eventClasses);
         setEventOnClickListener(eventOnClickListener);
     }
 
     @Override
     public int getItemCount(){
         int numberOfEvents;
-        if(events != null){
-            numberOfEvents = events.size();
+        if(eventClasses != null){
+            numberOfEvents = eventClasses.size();
         }else{
             numberOfEvents = 0;
         }
@@ -63,13 +64,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventsViewHo
 
     @Override
     public void onBindViewHolder(final EventAdapter.EventsViewHolder viewHolder, final int position){
-        Event event = events.get(position);
+        EventClass eventClass = eventClasses.get(position);
 
-        String descriptionText = "Descrição: " + event.getEventDescription();
+        String descriptionText = "Descrição: " + eventClass.getEventClassDescription();
         Log.d(TAG, descriptionText);
         viewHolder.textViewDescription.setText(descriptionText);
 
-        String titleText = event.getEventTitle();
+        String titleText = eventClass.getEventClassTitle();
         Log.d(TAG, titleText);
         viewHolder.textViewTitle.setText(titleText);
 
