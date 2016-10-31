@@ -10,6 +10,9 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.j256.ormlite.dao.Dao;
+
+import java.sql.SQLException;
 import java.util.Date;
 
 public class EventActivity extends AppCompatActivity implements View.OnClickListener {
@@ -91,7 +94,14 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
             eventGroup.setEventGroupClass(etEventClass.getText().toString());
             eventGroup.setEventGroupDate(etEventDate.getText().toString());
 
-            classUser.addEvents(eventGroup);
+            SubjectDatabaseHelper s = new SubjectDatabaseHelper(this);
+
+            /*try {
+                //TODO salvar na turma correta
+
+            } catch (SQLException e) {
+               e.printStackTrace();
+            }*/
 
         }
         else{
@@ -101,7 +111,6 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
             eventClass.setEventClass(etEventClass.getText().toString());
             eventClass.setEventClassDate(etEventDate.getText().toString());
 
-            classUser.addEvents(eventClass);
         }
     }
 

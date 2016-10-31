@@ -1,12 +1,31 @@
 package com.time2desenho.wikalendario;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
+@DatabaseTable(tableName = "eventsGroup")
 public class EventGroup {
     // Attributes.
+
+    @DatabaseField(generatedId = true)
+    private Long id;
+
+    @DatabaseField
     private String eventTitle;
+
+    @DatabaseField
     private String eventDescription;
+
+    @DatabaseField
     private String eventClass;
+
+    @DatabaseField
     private String eventDate;
+
+    public static final String CLASS_ID_FIELD_NAME = "class_id";
+
+    @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = CLASS_ID_FIELD_NAME)
+    private Class eventClass1;
 
     public EventGroup(String eventTitle, String eventDescription, String eventClass, String eventDate) {
         setEventGroupTitle(eventTitle);

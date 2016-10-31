@@ -127,4 +127,5 @@
     <string name="subjects">Disciplinas</string>
     <string name="events_day">Eventos do dia</string>
     <string name="title_activity_day">DayActivity</string>
+    <string name="user_table">userTable</string>
 </resources>

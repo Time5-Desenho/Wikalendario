@@ -1,8 +1,14 @@
 package com.time2desenho.wikalendario;
 
-/**
- * Created by joao on 31/10/16.
- */
+import android.content.Context;
 
-public class DatabaseHelper {
+import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
+
+public abstract class DatabaseHelper extends OrmLiteSqliteOpenHelper{
+    protected static final String DATABASE_NAME = "Wikalendario";
+    protected static final int DATABASE_VERSION = 1;
+
+    public DatabaseHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
 }

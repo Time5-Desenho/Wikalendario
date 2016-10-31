@@ -1,70 +1,45 @@
 package com.time2desenho.wikalendario;
 
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.DatabaseErrorHandler;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.support.annotation.NonNull;
 
-public class EventGroupDatabaseHelper extends SQLiteOpenHelper {
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.TableUtils;
 
+public class EventGroupDatabaseHelper extends DatabaseHelper {
 
-    protected static String TABLE = "EVENTCLASS";
-    protected static String COLUMN_TITTLE = "tittle";
-    protected static String COLUMN_DESCRIPTION="description";
-    protected static String COLUMN_CLASS="class";
-    protected static String COLUMN_DATE="date";
-
-
-    public EventGroupDatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    public  EventGroupDatabaseHelper(Context context){
+        super(context);
     }
 
-    public EventGroupDatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version, DatabaseErrorHandler errorHandler) {
-        super(context, name, factory, version, errorHandler);
-    }
+    private Dao<EventGroup, Long> eventGroupDAO;
 
-    public static void createTableClass(SQLiteDatabase sqLiteDatabase){
-        sqLiteDatabase.execSQL("CREATE TABLE  IF NOT EXISTS " + TABLE + " (" +
-                COLUMN_TITTLE + " VARCHAR(45) NOT NULL, " +
-                COLUMN_DESCRIPTION + " VARCHAR(45) NOT NULL, " +
-                COLUMN_CLASS + " VARCHAR(45) NOT NULL, " +
-                COLUMN_DATE + "VARCHAR(45) NOT NULL, " +
-                " CONSTRAINT " + TABLE + "_PK PRIMARY KEY (" + COLUMN_TITTLE + "))");
+    @Override
+    public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
+        try {
+            TableUtils.createTableIfNotExists(connectionSource, EventGroup.class);
+        } catch (java.sql.SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
-
+    public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource,
+                          int oldVersion, int newVersion) {
+        try {
+            TableUtils.dropTable(connectionSource, EventGroup.class, false);
+        }catch (java.sql.SQLException e){
+            e.printStackTrace();
+        }
     }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE);
-        createTableClass(sqLiteDatabase);
+    public Dao<EventGroup, Long> getDAO() throws java.sql.SQLException {
+        if(eventGroupDAO == null){
+            eventGroupDAO = getDao(EventGroup.class);
+        }
+
+        return eventGroupDAO;
     }
-
-    @NonNull
-    private ContentValues getEventClassData(EventClass eventClass) {
-        ContentValues data = new ContentValues();
-        data.put(COLUMN_TITTLE, eventClass.getEventClassTitle());
-        data.put(COLUMN_CLASS, eventClass.getEventClass());
-        data.put(COLUMN_DESCRIPTION, eventClass.getEventClassDescription());
-        data.put(COLUMN_DATE, eventClass.getEventClassDate());
-        return data;
-    }
-
-    public int insertEventClass(EventClass eventClass) throws SQLException {
-        SQLiteDatabase dataBase = getWritableDatabase();
-        int insertReturn;
-        ContentValues data = getEventClassData(eventClass);
-
-        insertReturn = (int) dataBase.insertOrThrow(TABLE, null, data);
-
-        return  insertReturn;
-    }
-
 }
