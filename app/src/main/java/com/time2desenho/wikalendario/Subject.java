@@ -2,17 +2,30 @@ package com.time2desenho.wikalendario;
 
 import android.util.Log;
 
+import com.j256.ormlite.dao.ForeignCollection;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@DatabaseTable(tableName = "subjects")
 public class Subject extends Class {
 
     private static final String REGEX = "\\d+";
     private static final String TAG = "Subject";
 
+    @DatabaseField(generatedId = true)
     private Long idSubject;
+
+    @DatabaseField
     private String name;
-    private List<Class> classes = new ArrayList<>();
+
+    @ForeignCollectionField
+    private ForeignCollection<Class> classes;
+
+    @DatabaseField
     private String code;
 
     public Subject(String code, String name) {
@@ -60,6 +73,14 @@ public class Subject extends Class {
 
     public void setIdSubject(Long idSubject) {
         this.idSubject = idSubject;
+    }
+
+    public ForeignCollection<Class> getClasses() {
+        return classes;
+    }
+
+    public void setClasses(ForeignCollection<Class> classes) {
+        this.classes = classes;
     }
 
     @Override

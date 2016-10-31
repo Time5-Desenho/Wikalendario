@@ -1,5 +1,7 @@
 package com.time2desenho.wikalendario;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -8,51 +10,47 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.TableUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubjectDatabaseHelper {
+public class SubjectDatabaseHelper extends DatabaseHelper{
 
-    private ArrayList<Subject> subjects;
-    private FirebaseDatabase database;
+    private Dao<Subject, Long> subjectDAO;
 
-    public SubjectDatabaseHelper(){
-        database = FirebaseDatabase.getInstance();
-        DatabaseReference dbRef = database.getReference("subjects");
-
-        dbRef.addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                GenericTypeIndicator<List<Subject>> sub = new GenericTypeIndicator<List<Subject>>() {};
-                List<Subject> s = dataSnapshot.getValue(sub);
-                setSubjects((ArrayList<Subject>) dataSnapshot.getValue(sub));
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                error.toException();
-            }
-        });
+    public SubjectDatabaseHelper(Context context) {
+        super(context);
     }
 
-    public void update(){
-        DatabaseReference dbRef = database.getReference("subjects");
-        dbRef.setValue(subjects);
+    @Override
+    public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
+        try {
+            TableUtils.createTableIfNotExists(connectionSource, Subject.class);
+        } catch (java.sql.SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public ArrayList<Subject> getSubjects() {
-        assert subjects != null;
-        return subjects;
+    @Override
+    public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource,
+                          int oldVersion, int newVersion) {
+        try {
+            TableUtils.dropTable(connectionSource, Subject.class, false);
+        }catch (java.sql.SQLException e){
+            e.printStackTrace();
+        }
     }
 
-    public void setSubjects(ArrayList<Subject> subjects) {
-        this.subjects = subjects;
-    }
+    public Dao<Subject, Long> getDAO() throws java.sql.SQLException {
+        if(subjectDAO == null){
+            subjectDAO = getDao(Subject.class);
+        }
 
+        return subjectDAO;
+    }
 }
 

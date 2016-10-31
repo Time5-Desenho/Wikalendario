@@ -12,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
+import com.j256.ormlite.dao.Dao;
+
 import java.util.ArrayList;
 
 public class SubjectsActivity extends AppCompatActivity {
@@ -19,7 +21,7 @@ public class SubjectsActivity extends AppCompatActivity {
     private ArrayList<Subject> subjects;
     protected RecyclerView recyclerView;
     private final Context context = this;
-    private SubjectDAO subjectDAO;
+    private SubjectDatabaseHelper subjectDAO;
 
     public ArrayList<Subject> getSubjects() {
         return subjects;
@@ -45,9 +47,19 @@ public class SubjectsActivity extends AppCompatActivity {
 
         setSubjects(CSVReader.getSubjects(this, R.raw.lista));
 
+        try {
+            SubjectDatabaseHelper subjectDatabaseHelper = new SubjectDatabaseHelper(getContext());
+            Dao<Subject, Long> subjectDao = subjectDatabaseHelper.getDAO();
+            for (Subject subject : subjects) {
+                subjectDao.createOrUpdate(subject);
+            }
+        }catch (java.sql.SQLException e){
+            e.printStackTrace();
+        }
+
         ClassReader.getSubjects(this, R.raw.turma);
 
-//        subjectDAO = new SubjectDAO();
+//        subjectDAO = new SubjectDatabaseHelper();
 //        setSubjects(subjectDAO.getSubjects());
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
