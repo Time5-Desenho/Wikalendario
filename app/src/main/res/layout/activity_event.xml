@@ -60,32 +60,31 @@
         android:layout_marginTop="30dp"
         android:id="@+id/eventDate" />
 
+    <Button
+        android:text="Criar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eventCreate"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
     <Switch
         android:id="@+id/switchGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="20dp"
-        android:text="É um evento do seu grupo?" />
+        android:layout_marginTop="21dp"
+        android:text="É um evento do seu grupo?"
+        android:layout_below="@+id/eventDate"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/switchStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:text="Texto"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_below="@+id/switchGroup"
-        android:layout_marginTop="22dp"
-        android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Button
-        android:text="Criar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/eventDate"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
-        android:id="@+id/eventCreate" />
+        android:layout_marginTop="26dp" />
 
 </RelativeLayout>
