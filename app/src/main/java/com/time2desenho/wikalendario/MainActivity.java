@@ -2,9 +2,6 @@ package com.time2desenho.wikalendario;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -18,16 +15,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.roomorama.caldroid.CaldroidFragment;
-import com.roomorama.caldroid.CaldroidListener;
-
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-
-import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -64,8 +53,8 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //Fragment do calendario
-        CalendarFactory calendarFactory = new FullCalendarFactory();
-        CaldroidFragment caldroidFragment = calendarFactory.createCalendarFragment(getContext());
+        CalendarBuilder calendarBuilder = new FullCalendarBuilder();
+        CaldroidFragment caldroidFragment = calendarBuilder.createCalendarFragment(getContext());
 
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
         t.replace(R.id.calendar1, caldroidFragment);
