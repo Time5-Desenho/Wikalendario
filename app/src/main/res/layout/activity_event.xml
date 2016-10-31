@@ -30,7 +30,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:inputType="text"
         android:text="Descrição"
         android:ems="10"
         android:layout_below="@+id/eventTitle"
@@ -41,7 +41,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:inputType="text"
         android:text="Classe"
         android:ems="10"
         android:layout_below="@+id/eventDescription"
@@ -52,13 +52,32 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="date"
-        android:text="aaaa-mm-dd"
+        android:inputType="text"
+        android:text="09/04/1997"
         android:ems="10"
         android:layout_below="@+id/eventClass"
         android:layout_alignStart="@+id/eventClass"
         android:layout_marginTop="30dp"
         android:id="@+id/eventDate" />
+
+    <Switch
+        android:id="@+id/switchGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:text="É um evento do seu grupo?" />
+
+    <TextView
+        android:id="@+id/switchStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/switchGroup"
+        android:layout_marginTop="22dp"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
         android:text="Criar"
