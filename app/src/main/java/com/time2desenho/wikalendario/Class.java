@@ -23,12 +23,13 @@ public class Class implements Event{
         this.teacher = teacher;
     }
 
+
     public void addEvents(EventGroup event){
-        this.eventsGroup.add(event);
+        this.getEventsGroup().add(event);
     }
 
     public void addEvents(EventClass event){
-        this.eventsClass.add(event);
+        this.getEventsClass().add(event);
     }
 
     public Long getIdClass() {
@@ -53,6 +54,22 @@ public class Class implements Event{
 
     public void setTeacher(String teacher) {
         this.teacher = teacher;
+    }
+
+    public List<EventClass> getEventsClass() {
+        return eventsClass;
+    }
+
+    public void setEventsClass(List<EventClass> eventsClass) {
+        this.eventsClass = eventsClass;
+    }
+
+    public List<EventGroup> getEventsGroup() {
+        return eventsGroup;
+    }
+
+    public void setEventsGroup(List<EventGroup> eventsGroup) {
+        this.eventsGroup = eventsGroup;
     }
 
     @Override
