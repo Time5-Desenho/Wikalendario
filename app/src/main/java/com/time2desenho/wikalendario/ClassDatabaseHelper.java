@@ -8,58 +8,42 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 
-public class ClassDatabaseHelper extends SQLiteOpenHelper {
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.TableUtils;
 
-    protected static String TABLE = "CLASS";
-    protected static String COLUMN_ID = "idClass";
-    protected static String COLUMN_LETTER="letter";
-    protected static String COLUMN_TEACHER="teacher";
+public class ClassDatabaseHelper extends DatabaseHelper{
 
+    private Dao<Class, Long> classDAO;
 
-    public ClassDatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
-    }
-
-    public ClassDatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version, DatabaseErrorHandler errorHandler) {
-        super(context, name, factory, version, errorHandler);
-    }
-
-    public static void createTableClass(SQLiteDatabase sqLiteDatabase){
-        sqLiteDatabase.execSQL("CREATE TABLE  IF NOT EXISTS " + TABLE + " (" +
-                COLUMN_ID + " INTEGER NOT NULL, " +
-                COLUMN_LETTER + " VARCHAR(45) NOT NULL, " +
-                COLUMN_TEACHER + "VARCHAR(45) NOT NULL, " +
-                " CONSTRAINT " + TABLE + "_PK PRIMARY KEY (" + COLUMN_ID + "))");
+    public ClassDatabaseHelper(Context context) {
+        super(context);
     }
 
     @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
-
+    public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
+        try {
+            TableUtils.createTableIfNotExists(connectionSource, Class.class);
+        } catch (java.sql.SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE);
-        createTableClass(sqLiteDatabase);
+    public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource,
+                          int oldVersion, int newVersion) {
+        try {
+            TableUtils.dropTable(connectionSource, Class.class, false);
+        }catch (java.sql.SQLException e){
+            e.printStackTrace();
+        }
     }
 
-    @NonNull
-    private ContentValues getClassData(Class classes) {
-        ContentValues data = new ContentValues();
-        data.put(COLUMN_ID, classes.getIdClass());
-        data.put(COLUMN_LETTER, classes.getLetter());
-        data.put(COLUMN_TEACHER, classes.getTeacher());
-        return data;
+    public Dao<Class, Long> getDAO() throws java.sql.SQLException {
+        if(classDAO == null){
+            classDAO = getDao(Class.class);
+        }
+
+        return classDAO;
     }
-
-    public int insertBook(Class classes) throws SQLException {
-        SQLiteDatabase dataBase = getWritableDatabase();
-        int insertReturn;
-        ContentValues data = getClassData(classes);
-
-        insertReturn = (int) dataBase.insertOrThrow(TABLE, null, data);
-
-        return  insertReturn;
-    }
-
 }
