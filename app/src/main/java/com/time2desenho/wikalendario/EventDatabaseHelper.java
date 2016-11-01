@@ -8,18 +8,18 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
-public class EventClassDatabaseHelper extends DatabaseHelper {
+public class EventDatabaseHelper extends DatabaseHelper {
 
-    public  EventClassDatabaseHelper(Context context){
+    public EventDatabaseHelper(Context context){
         super(context);
     }
 
-    private Dao<EventClass, Long> eventClassDAO;
+    private Dao<Event, Long> eventClassDAO;
 
     @Override
     public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
         try {
-            TableUtils.createTableIfNotExists(connectionSource, EventClass.class);
+            TableUtils.createTableIfNotExists(connectionSource, Event.class);
         } catch (java.sql.SQLException e) {
             e.printStackTrace();
         }
@@ -29,15 +29,15 @@ public class EventClassDatabaseHelper extends DatabaseHelper {
     public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource,
                           int oldVersion, int newVersion) {
         try {
-            TableUtils.dropTable(connectionSource, EventClass.class, false);
+            TableUtils.dropTable(connectionSource, Event.class, false);
         }catch (java.sql.SQLException e){
             e.printStackTrace();
         }
     }
 
-    public Dao<EventClass, Long> getDAO() throws java.sql.SQLException {
+    public Dao<Event, Long> getDAO() throws java.sql.SQLException {
         if(eventClassDAO == null){
-            eventClassDAO = getDao(EventClass.class);
+            eventClassDAO = getDao(Event.class);
         }
 
         return eventClassDAO;
