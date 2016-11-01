@@ -5,22 +5,31 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
 
-@DatabaseTable(tableName = "users")
-public class User implements Serializable {
+import static com.time2desenho.wikalendario.User.USERS_TABLE;
 
-    @DatabaseField(generatedId = true)
+@DatabaseTable(tableName = USERS_TABLE)
+public class User implements Serializable {
+    public final static String USERS_TABLE = "users";
+    public final static String USER_ID = "user_id";
+    public final static String USER_NAME = "user_name";
+    public final static String USERNAME = "username";
+    public final static String EMAIL = "email";
+    public final static String PASSWORD = "password";
+
+
+    @DatabaseField(generatedId = true, columnName = USER_ID)
     private Long id;
 
-    @DatabaseField
+    @DatabaseField(columnName = USER_NAME)
     private String name;
 
-    @DatabaseField
+    @DatabaseField(columnName = USERNAME)
     private String username;
 
-    @DatabaseField
+    @DatabaseField(columnName = EMAIL)
     private String email;
 
-    @DatabaseField
+    @DatabaseField(columnName = PASSWORD)
     private String password;
 
     public User(String username) {

@@ -11,6 +11,8 @@ import android.widget.Toast;
 import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserActivity extends AppCompatActivity {
 
@@ -49,11 +51,13 @@ public class UserActivity extends AppCompatActivity {
                 try {
                     Dao<User, Long> userDAO = userDatabaseHelper.getDAO();
                     userDAO.createOrUpdate(user);
+                    User u = userDAO.queryForId(3L);
+                    if(u != null)
+                        Toast.makeText(UserActivity.this, "[" + u.getName() + "]", Toast.LENGTH_SHORT).show();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
 
-                Toast.makeText(UserActivity.this, user.getName() + " Created!", Toast.LENGTH_SHORT).show();
 
                 Intent goToForm = new Intent(UserActivity.this, MainActivity.class);
                 goToForm.putExtra("user", user);
