@@ -5,52 +5,51 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
-import java.util.ArrayList;
-import java.util.List;
+import static com.time2desenho.wikalendario.Class.CLASSES_TABLE;
+import static com.time2desenho.wikalendario.Subject.SUBJECT_ID;
 
-import static com.time2desenho.wikalendario.Class.SUBJECT_ID_FIELD_NAME;
+@DatabaseTable(tableName = CLASSES_TABLE)
+public class Class{
 
-@DatabaseTable(tableName = "classes")
-public class Class implements Event{
+    public final static String CLASSES_TABLE = "classes";
+    public final static String CLASS_ID = "class_id";
+    public final static String LETTER = "letter";
+    public final static String TEACHER = "teacher";
+    public final static String CLASS_EVENTS = "class_events";
+    public final static String CLASS_GROUPS = "class_groups";
 
-    @DatabaseField(generatedId = true)
+    @DatabaseField(generatedId = true, columnName = CLASS_ID)
     private Long idClass;
 
-    public static final String SUBJECT_ID_FIELD_NAME = "subject_id";
-
-    @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = SUBJECT_ID_FIELD_NAME)
+    @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = SUBJECT_ID)
     private Subject subject;
 
-    @DatabaseField
+    @DatabaseField(columnName = LETTER)
     private String letter;
 
-    @DatabaseField
+    @DatabaseField(columnName = TEACHER)
     private String teacher;
 
-    //TODO classe não possui evento de grupo
-    @ForeignCollectionField
-    private ForeignCollection<EventClass> eventsClass;
+    @ForeignCollectionField(columnName = CLASS_EVENTS)
+    ForeignCollection<Event> events;
 
-    @ForeignCollectionField
-    private ForeignCollection<EventGroup> eventsGroup;
+    @ForeignCollectionField(columnName = CLASS_GROUPS)
+    ForeignCollection<Group> groups;
+    //TODO associar n x n com user
 
     public Class(){
 
     }
 
-    public Class(Long idClass, String letter, String teacher) {
-        this.idClass = idClass;
+    public Class(Long numCode, String letter, String teacher) {
+        //TODO associar com subject
         this.letter = letter;
         this.teacher = teacher;
     }
 
 
-    public void addEvents(EventGroup event){
-        this.getEventsGroup().add(event);
-    }
-
-    public void addEvents(EventClass event){
-        this.getEventsClass().add(event);
+    public void addEvent(Event event){
+        this.getEvents().add(event);
     }
 
     public Long getIdClass() {
@@ -85,24 +84,19 @@ public class Class implements Event{
         this.teacher = teacher;
     }
 
-    public ForeignCollection<EventClass> getEventsClass() {
-        return eventsClass;
+    public ForeignCollection<Event> getEvents() {
+        return events;
     }
 
-    public void setEventsClass(ForeignCollection<EventClass> eventsClass) {
-        this.eventsClass = eventsClass;
+    public void setEvents(ForeignCollection<Event> events) {
+        this.events = events;
     }
 
-    public ForeignCollection<EventGroup> getEventsGroup() {
-        return eventsGroup;
+    public ForeignCollection<Group> getGroups() {
+        return groups;
     }
 
-    public void setEventsGroup(ForeignCollection<EventGroup> eventsGroup) {
-        this.eventsGroup = eventsGroup;
-    }
-
-    @Override
-    public void showEventToUser() {
-        //TO DO
+    public void setGroups(ForeignCollection<Group> groups) {
+        this.groups = groups;
     }
 }

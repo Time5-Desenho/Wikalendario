@@ -19,8 +19,7 @@ import java.util.Date;
 
 public class DayActivity extends AppCompatActivity {
 
-    private ArrayList<EventClass> eventClasses;
-    private ArrayList<EventGroup> eventGroups;
+    private ArrayList<Event> events;
     protected RecyclerView recyclerView;
     private final Context context = this;
     //private EventDAO eventDAO;
@@ -49,14 +48,21 @@ public class DayActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Date date = (Date) intent.getSerializableExtra("date");
 
-        //TODO: Place real events
-        eventClasses = new ArrayList<>();
-        eventClasses.add(new EventClass("EventoC1", "Teste1", "Turma1", "01/10/2016"));
-        eventClasses.add(new EventClass("EventoC2", "Teste2", "Turma2", "02/10/2016"));
+        //TODO Colocar eventos de verdade
+        Class testClass = new Class();
+        testClass.setLetter("A");
 
-        eventGroups= new ArrayList<>();
-        eventGroups.add(new EventGroup("EventoG1", "Teste1", "Turma1", "01/10/2016"));
-        eventGroups.add(new EventGroup("EventoG2", "Teste2", "Turma2", "02/10/2016"));
+        events = new ArrayList<>();
+        events.add(new Event("EventoC1", "Teste1", testClass, new Date()));
+
+        testClass.setLetter("B");
+        events.add(new Event("EventoC2", "Teste2", testClass, new Date()));
+
+        Group group = new Group();
+
+        events = new ArrayList<>();
+        events.add(new Event("EventoG1", "Teste1", testClass, group, new Date()));
+        events.add(new Event("EventoG2", "Teste2", testClass, group, new Date()));
 
         //ClassReader.getEvents(this, R.raw.turma);
 
@@ -72,20 +78,12 @@ public class DayActivity extends AppCompatActivity {
 
 
 
-    public ArrayList<EventClass> getEventClasses() {
-        return eventClasses;
+    public ArrayList<Event> getEvents() {
+        return events;
     }
 
-    public void setEventClasses(ArrayList<EventClass> eventClasses) {
-        this.eventClasses = eventClasses;
-    }
-
-    public ArrayList<EventGroup> getEventGroups() {
-        return eventGroups;
-    }
-
-    public void setEventGroups(ArrayList<EventGroup> eventGroups) {
-        this.eventGroups = eventGroups;
+    public void setEvents(ArrayList<Event> events) {
+        this.events = events;
     }
 
     public Context getContext(){
@@ -95,27 +93,25 @@ public class DayActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        recyclerView.setAdapter(new EventAdapter(this, eventClasses, onClickEvent()));
+        recyclerView.setAdapter(new EventAdapter(this, events, onClickEvent()));
     }
 
     public EventAdapter.EventOnClickListener onClickEvent(){
         return new EventAdapter.EventOnClickListener(){
             @Override
             public void onClickEvent(View view, int position){
-                EventClass eventClass = eventClasses.get(position);
+                Event eventClass = events.get(position);
 
                 Intent intent = new Intent(getContext(), EventActivity.class);
-                intent.putExtra("title", eventClass.getEventClassTitle());
-                intent.putExtra("description", eventClass.getEventClassDescription());
-                intent.putExtra("date", eventClass.getEventClassDate());
+                intent.putExtra("title", eventClass.getTitle());
+                intent.putExtra("description", eventClass.getDescription());
+                intent.putExtra("date", eventClass.getDate());
 
                 startActivity(intent);
 
-                Toast.makeText(getContext(),"Event: " + eventClass.getEventClassTitle() + ":" + eventClass.getEventClassDescription()
+                Toast.makeText(getContext(),"Event: " + eventClass.getTitle() + ":" + eventClass.getDescription()
                         , Toast.LENGTH_SHORT).show();
             }
         };
     }
-
-
 }

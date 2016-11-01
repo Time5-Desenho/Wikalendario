@@ -7,37 +7,36 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
-import java.util.ArrayList;
-import java.util.List;
+import static com.time2desenho.wikalendario.Subject.SUBJECTS_TABLE;
 
-@DatabaseTable(tableName = "subjects")
+@DatabaseTable(tableName = SUBJECTS_TABLE)
 public class Subject extends Class {
 
     private static final String REGEX = "\\d+";
     private static final String TAG = "Subject";
 
-    @DatabaseField(generatedId = true)
-    private Long idSubject;
+    public final static String SUBJECTS_TABLE = "subjects";
+    public final static String SUBJECT_ID = "subject_id";
+    public final static String SUBJECT_NAME = "subject_name";
+    public final static String SUBJECT_CLASSES = "subject_classes";
+    public final static String CODE = "code";
 
-    @DatabaseField
+
+    @DatabaseField(generatedId = true, columnName = SUBJECT_ID)
+    private Long id;
+
+    @DatabaseField(columnName = SUBJECT_NAME)
     private String name;
 
-    @ForeignCollectionField
+    @ForeignCollectionField(columnName = SUBJECT_CLASSES)
     private ForeignCollection<Class> classes;
 
-    @DatabaseField
+    @DatabaseField(columnName = CODE)
     private String code;
 
     public Subject(String code, String name) {
         setCode(code);
         setName(name);
-    }
-
-    public Subject(Long idClass, String letter, String teacher, Long idSubject, String name, String code) {
-        super(idClass, letter, teacher);
-        this.idSubject = idSubject;
-        this.name = name;
-        this.code = code;
     }
 
     public void addClass(Class classUnity){
@@ -67,12 +66,12 @@ public class Subject extends Class {
         this.code = code;
     }
 
-    public Long getIdSubject() {
-        return idSubject;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdSubject(Long idSubject) {
-        this.idSubject = idSubject;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public ForeignCollection<Class> getClasses() {
