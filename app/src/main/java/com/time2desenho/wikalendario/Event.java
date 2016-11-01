@@ -2,11 +2,14 @@ package com.time2desenho.wikalendario;
 
 
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.Date;
 
+import static com.time2desenho.wikalendario.Class.CLASS_ID;
 import static com.time2desenho.wikalendario.Event.EVENTS_TABLE;
+import static com.time2desenho.wikalendario.Group.GROUP_ID;
 
 @DatabaseTable(tableName = EVENTS_TABLE)
 public class Event {
@@ -15,74 +18,76 @@ public class Event {
     public final static String EVENTS_TABLE = "events";
     public final static String TITLE = "event_title";
     public final static String DESCRIPTION = "description";
-    public final static String DATE = "";
+    public final static String DATE = "date";
 
+    @DatabaseField(columnName = TITLE)
+    private String title;
 
+    @DatabaseField(columnName = DESCRIPTION)
+    private String description;
 
-    @DatabaseField
-    private String eventTitle;
+    @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = CLASS_ID)
+    private Class eventClass;
 
-    @DatabaseField
-    private String eventDescription;
+    @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = GROUP_ID)
+    private Group group;
 
-    @DatabaseField
-    private String eventClass;
+    @DatabaseField(columnName = DATE)
+    private Date date;
 
-    @DatabaseField
-    private Date eventDate;
-
-    public static final String CLASS_ID_FIELD_NAME = "class_id";
-
-    @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = CLASS_ID_FIELD_NAME)
-    private Class eventClass1;
-
-    public Event(String eventTitle, String eventDescription, String eventClass, String eventDate) {
-        setEventClassTitle(eventTitle);
-        setEventClassDescription(eventDescription);
+    public Event(String title, String description, Class eventClass, Group group, Date date) {
+        setTitle(title);
+        setDescription(DESCRIPTION);
         setEventClass(eventClass);
-        setEventClassDate(eventDate);
+        setGroup(group);
+        setDate(date);
+    }
+
+    public Event(String title, String description, Class eventClass, Date date) {
+        this(title, description, eventClass, null, date);
     }
 
     public Event() {
-        setEventClassTitle("Titulo");
-        setEventClassDescription("Descrição");
-        setEventClass("Turma");
-        setEventClassDate("Data");
+        this("Titulo", "Descrição", null, new Date());
     }
 
-    public String getEventClassTitle() {
-        return eventTitle;
+    public Date getDate() {
+        return date;
     }
 
-    public void setEventClassTitle(String eventTitle) {
-        this.eventTitle = eventTitle;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public String getEventClassDescription() {
-        return eventDescription;
+    public String getTitle() {
+        return title;
     }
 
-    public void setEventClassDescription(String eventDescription) {
-        this.eventDescription = eventDescription;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getEventClass() {
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Class getEventClass() {
         return eventClass;
     }
 
-    public void setEventClass(String eventClass) {
+    public void setEventClass(Class eventClass) {
         this.eventClass = eventClass;
     }
 
-    public Date getEventClassDate() {
-        return eventDate;
+    public Group getGroup() {
+        return group;
     }
 
-    public void setEventClassDate(Date eventDate) {
-        this.eventDate = eventDate;
-    }
-
-    public void showEventClassToUser(){
-        //TO DO
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }

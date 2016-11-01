@@ -14,8 +14,7 @@ import java.util.ArrayList;
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventsViewHolder> {
 
     private Context context;
-    private ArrayList<EventClass> eventClasses;
-    private ArrayList<EventGroup> eventGroups;
+    private ArrayList<Event> eventClasses;
     private EventAdapter.EventOnClickListener eventOnClickListener;
 
     private final String TAG = "EventAdapter";
@@ -28,11 +27,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventsViewHo
         this.context = context;
     }
 
-    public ArrayList<EventClass> getEventClasses() {
+    public ArrayList<Event> getEventClasses() {
         return eventClasses;
     }
 
-    public void setEvents(ArrayList<EventClass> eventClasses) {
+    public void setEvents(ArrayList<Event> eventClasses) {
         this.eventClasses = eventClasses;
     }
 
@@ -44,7 +43,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventsViewHo
         this.eventOnClickListener = eventOnClickListener;
     }
 
-    public EventAdapter(Context context, ArrayList<EventClass> eventClasses, EventAdapter.EventOnClickListener eventOnClickListener){
+    public EventAdapter(Context context, ArrayList<Event> eventClasses, EventAdapter.EventOnClickListener eventOnClickListener){
         setContext(context);
         setEvents(eventClasses);
         setEventOnClickListener(eventOnClickListener);
@@ -64,13 +63,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventsViewHo
 
     @Override
     public void onBindViewHolder(final EventAdapter.EventsViewHolder viewHolder, final int position){
-        EventClass eventClass = eventClasses.get(position);
+        Event eventClass = eventClasses.get(position);
 
-        String descriptionText = "Descrição: " + eventClass.getEventClassDescription();
+        String descriptionText = "Descrição: " + eventClass.getDescription();
         Log.d(TAG, descriptionText);
         viewHolder.textViewDescription.setText(descriptionText);
 
-        String titleText = eventClass.getEventClassTitle();
+        String titleText = eventClass.getTitle();
         Log.d(TAG, titleText);
         viewHolder.textViewTitle.setText(titleText);
 

@@ -14,7 +14,7 @@ public class EventDatabaseHelper extends DatabaseHelper {
         super(context);
     }
 
-    private Dao<Event, Long> eventClassDAO;
+    private Dao<Event, Long> eventDAO;
 
     @Override
     public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
@@ -36,10 +36,10 @@ public class EventDatabaseHelper extends DatabaseHelper {
     }
 
     public Dao<Event, Long> getDAO() throws java.sql.SQLException {
-        if(eventClassDAO == null){
-            eventClassDAO = getDao(Event.class);
+        if(eventDAO == null){
+            eventDAO = getDao(Event.class);
         }
 
-        return eventClassDAO;
+        return eventDAO;
     }
 }

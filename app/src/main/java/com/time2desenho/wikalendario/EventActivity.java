@@ -10,9 +10,6 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.j256.ormlite.dao.Dao;
-
-import java.sql.SQLException;
 import java.util.Date;
 
 public class EventActivity extends AppCompatActivity implements View.OnClickListener {
@@ -86,32 +83,30 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        Class classUser = new Class();
-        if (group) {
-            EventGroup eventGroup = new EventGroup();
-            eventGroup.setEventGroupTitle(etEventTitle.getText().toString());
-            eventGroup.setEventGroupDescription(etEventDescription.getText().toString());
-            eventGroup.setEventGroupClass(etEventClass.getText().toString());
-            eventGroup.setEventGroupDate(etEventDate.getText().toString());
+        Event event = new Event();
+        //TODO mostrar turmas que ele tem e escolher pelo ID
+        Class eventClass = new Class();
+        Date date = new Date();
 
-            SubjectDatabaseHelper s = new SubjectDatabaseHelper(this);
-
-            /*try {
-                //TODO salvar na turma correta
-
-            } catch (SQLException e) {
-               e.printStackTrace();
-            }*/
-
+        if(group){
+            //TODO colocar grupo certo do cara, como faremos isso é um dos muitos mistérios da vida
+            Group group = new Group();
+            event.setGroup(group);
         }
-        else{
-            EventClass eventClass = new EventClass();
-            eventClass.setEventClassTitle(etEventTitle.getText().toString());
-            eventClass.setEventClassDescription(etEventDescription.getText().toString());
-            eventClass.setEventClass(etEventClass.getText().toString());
-            eventClass.setEventClassDate(etEventDate.getText().toString());
 
-        }
+        event.setTitle(etEventTitle.getText().toString());
+        event.setDescription(etEventDescription.getText().toString());
+        event.setEventClass(eventClass);
+        event.setDate(date);
+
+        SubjectDatabaseHelper s = new SubjectDatabaseHelper(this);
+
+        /*try {
+        //TODO salvar na turma correta
+
+        } catch (SQLException e) {
+           e.printStackTrace();
+        }*/
     }
 
 }
