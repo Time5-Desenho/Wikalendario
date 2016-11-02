@@ -51,9 +51,10 @@ public class UserActivity extends AppCompatActivity {
                 try {
                     Dao<User, Long> userDAO = userDatabaseHelper.getDAO();
                     userDAO.createOrUpdate(user);
-                    User u = userDAO.queryForId(3L);
-                    if(u != null)
-                        Toast.makeText(UserActivity.this, "[" + u.getName() + "]", Toast.LENGTH_SHORT).show();
+
+                    User firstUser = new User("joao", "joao18araujo","joao18araujo@gmail.com", "12345678");
+                    firstUser.setId(1L);
+                    userDAO.createOrUpdate(firstUser);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }

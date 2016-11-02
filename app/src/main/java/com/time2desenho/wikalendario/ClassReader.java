@@ -28,7 +28,7 @@ public class ClassReader {
 
             Long numCode = Long.parseLong(code);
 
-            classes.add(new Class(numCode, letter, teacher));
+            classes.add(new Class(letter, teacher));
         }
 
         return classes;
