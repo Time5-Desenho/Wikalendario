@@ -35,14 +35,12 @@ public class Class{
 
     @ForeignCollectionField(columnName = CLASS_GROUPS)
     ForeignCollection<Group> groups;
-    //TODO associar n x n com user
 
     public Class(){
 
     }
 
-    public Class(Long numCode, String letter, String teacher) {
-        //TODO associar com subject
+    public Class(String letter, String teacher) {
         this.letter = letter;
         this.teacher = teacher;
     }

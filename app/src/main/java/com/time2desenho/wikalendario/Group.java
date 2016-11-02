@@ -36,6 +36,11 @@ public class Group {
 
     }
 
+    public Group(String name, Class groupClass){
+        setName(name);
+        setGroupClass(groupClass);
+    }
+
     public Long getId() {
         return id;
     }
@@ -65,6 +70,6 @@ public class Group {
     }
 
     public void setGroupClass(Class groupClass) {
-        this.groupClass = groupClass;
+        this.groupClass = this.groupClass;
     }
 }

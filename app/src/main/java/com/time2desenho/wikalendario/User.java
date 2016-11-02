@@ -32,11 +32,19 @@ public class User implements Serializable {
     @DatabaseField(columnName = PASSWORD)
     private String password;
 
-    public User(String username) {
-        this.username = username;
+    public User() {
+
     }
 
-    public User() {
+    public User(String name, String username, String email, String password){
+        setName(name);
+        setUsername(username);
+        setEmail(email);
+        setPassword(password);
+    }
+
+    public User(String username) {
+        this.username = username;
     }
 
     public Long getId() {
