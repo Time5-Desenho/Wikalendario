@@ -16,25 +16,6 @@ public class ClassDatabaseHelper extends DatabaseHelper{
         super(context);
     }
 
-    @Override
-    public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
-        try {
-            TableUtils.createTableIfNotExists(connectionSource, Class.class);
-        } catch (java.sql.SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource,
-                          int oldVersion, int newVersion) {
-        try {
-            TableUtils.dropTable(connectionSource, Class.class, false);
-        }catch (java.sql.SQLException e){
-            e.printStackTrace();
-        }
-    }
-
     public Dao<Class, Long> getDAO() throws java.sql.SQLException {
         if(classDAO == null){
             classDAO = getDao(Class.class);

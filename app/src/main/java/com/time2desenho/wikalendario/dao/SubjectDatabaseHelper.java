@@ -12,27 +12,8 @@ public class SubjectDatabaseHelper extends DatabaseHelper{
 
     private Dao<Subject, Long> subjectDAO;
 
-    public SubjectDatabaseHelper(Context context) {
+    public SubjectDatabaseHelper(Context context){
         super(context);
-    }
-
-    @Override
-    public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
-        try {
-            TableUtils.createTableIfNotExists(connectionSource, Subject.class);
-        } catch (java.sql.SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource,
-                          int oldVersion, int newVersion) {
-        try {
-            TableUtils.dropTable(connectionSource, Subject.class, false);
-        }catch (java.sql.SQLException e){
-            e.printStackTrace();
-        }
     }
 
     public Dao<Subject, Long> getDAO() throws java.sql.SQLException {
