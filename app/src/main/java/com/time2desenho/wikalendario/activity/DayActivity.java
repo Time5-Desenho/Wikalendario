@@ -19,6 +19,7 @@ import com.time2desenho.wikalendario.model.Class;
 import com.time2desenho.wikalendario.model.Event;
 import com.time2desenho.wikalendario.model.Group;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -32,12 +33,10 @@ public class DayActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_day);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(R.string.events_day);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -52,22 +51,9 @@ public class DayActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Date date = (Date) intent.getSerializableExtra("date");
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yy");
 
-        //TODO Colocar eventos de verdade
-        Class testClass = new Class();
-        testClass.setLetter("A");
-
-        events = new ArrayList<>();
-        events.add(new Event("EventoC1", "Teste1", testClass, new Date()));
-
-        testClass.setLetter("B");
-        events.add(new Event("EventoC2", "Teste2", testClass, new Date()));
-
-        Group group = new Group();
-
-        events = new ArrayList<>();
-        events.add(new Event("EventoG1", "Teste1", testClass, group, new Date()));
-        events.add(new Event("EventoG2", "Teste2", testClass, group, new Date()));
+        actionBar.setTitle(getResources().getString(R.string.events_day) + " " + s.format(date));
 
         //ClassReader.getEvents(this, R.raw.turma);
 

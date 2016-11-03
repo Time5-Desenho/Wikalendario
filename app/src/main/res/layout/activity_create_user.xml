@@ -38,5 +38,11 @@
         android:hint="@string/confirm_password_hint"
         android:inputType="textPassword" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/confirmation_button"
+        android:text="@string/confirmation"
+        android:layout_gravity="center" />
 
 </LinearLayout>

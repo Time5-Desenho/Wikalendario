@@ -9,17 +9,35 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.ExploreByTouchHelper;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.table.TableUtils;
 import com.roomorama.caldroid.CaldroidFragment;
+import com.time2desenho.wikalendario.dao.ClassDatabaseHelper;
+import com.time2desenho.wikalendario.dao.EventDatabaseHelper;
+import com.time2desenho.wikalendario.model.Class;
+import com.time2desenho.wikalendario.model.Event;
+import com.time2desenho.wikalendario.model.Group;
+import com.time2desenho.wikalendario.model.Subject;
 import com.time2desenho.wikalendario.util.CalendarBuilder;
 import com.time2desenho.wikalendario.util.FullCalendarBuilder;
 import com.time2desenho.wikalendario.R;
+
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+import static java.lang.System.exit;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -27,8 +45,12 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = "MainActivity";
     private Context context;
 
+    //TODO tirar essas DAOS
+    Dao<Event, Long> eventsDAO;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -54,6 +76,39 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //TODO Colocar eventos de verdade
+        try {
+            Class testClass = new Class();
+
+            Log.d("Create", "creating class");
+            ClassDatabaseHelper classDatabaseHelper = new ClassDatabaseHelper(this);
+            Dao<Class, Long> classDAO = classDatabaseHelper.getDAO();
+            classDAO.createOrUpdate(testClass);
+            Log.d("Create", "created class");
+
+            EventDatabaseHelper eventDatabaseHelper = new EventDatabaseHelper(this);
+            Dao<Event, Long> eventDAO = eventDatabaseHelper.getDAO();
+
+            SimpleDateFormat s = new SimpleDateFormat("dd/MM/yy");
+
+            Event event = new Event("EventoC1", "Teste1", testClass, s.parse("31/10/16"));
+            eventDAO.createOrUpdate(event);
+
+            event = new Event("EventoC2", "Teste2", testClass, s.parse("02/11/16"));
+            eventDAO.createOrUpdate(event);
+
+            event = new Event("EventoC3", "Teste3", testClass, s.parse("17/11/16"));
+            eventDAO.createOrUpdate(event);
+
+            event = new Event("EventoC4", "Teste4", testClass, s.parse("30/11/16"));
+            eventDAO.createOrUpdate(event);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
 
         //Fragment do calendario
         CalendarBuilder calendarBuilder = new FullCalendarBuilder();
