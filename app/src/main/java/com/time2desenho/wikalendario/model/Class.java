@@ -6,6 +6,7 @@ import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import static com.time2desenho.wikalendario.model.Class.CLASSES_TABLE;
+import static com.time2desenho.wikalendario.model.Subject.SUBJECT_ID;
 
 @DatabaseTable(tableName = CLASSES_TABLE)
 public class Class{
@@ -18,9 +19,9 @@ public class Class{
     public final static String CLASS_GROUPS = "class_groups";
 
     @DatabaseField(generatedId = true, columnName = CLASS_ID)
-    private Long idClass;
+    private Long id;
 
-    @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = Subject.SUBJECT_ID)
+    @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = SUBJECT_ID)
     private Subject subject;
 
     @DatabaseField(columnName = LETTER)
@@ -50,11 +51,11 @@ public class Class{
     }
 
     public Long getIdClass() {
-        return idClass;
+        return id;
     }
 
     public void setIdClass(Long idClass) {
-        this.idClass = idClass;
+        this.id = idClass;
     }
 
     public Subject getSubject() {

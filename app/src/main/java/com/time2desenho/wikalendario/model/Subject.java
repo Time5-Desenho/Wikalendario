@@ -12,7 +12,7 @@ import java.lang.*;
 import static com.time2desenho.wikalendario.model.Subject.SUBJECTS_TABLE;
 
 @DatabaseTable(tableName = SUBJECTS_TABLE)
-public class Subject extends Class {
+public class Subject {
 
     private static final String REGEX = "\\d+";
     private static final String TAG = "Subject";
@@ -24,7 +24,7 @@ public class Subject extends Class {
     public final static String CODE = "code";
 
 
-    @DatabaseField(generatedId = true, columnName = SUBJECT_ID)
+    @DatabaseField(generatedId = true)
     private Long id;
 
     @DatabaseField(columnName = SUBJECT_NAME)
@@ -35,6 +35,10 @@ public class Subject extends Class {
 
     @DatabaseField(columnName = CODE)
     private String code;
+
+    public Subject(){
+
+    }
 
     public Subject(String code, String name) {
         setCode(code);

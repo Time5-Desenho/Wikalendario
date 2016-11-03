@@ -14,7 +14,7 @@ import java.util.HashMap;
 public class ClassCalendarBuilder extends CalendarBuilder {
 
     @Override
-    protected HashMap<Date, Drawable> createPaintedDates(){
+    protected HashMap<Date, Drawable> createPaintedDates(final Context context){
         HashMap<Date, Drawable> paintedDates = new HashMap<>();
         //TODO Devolver eventos da classe
         return paintedDates;

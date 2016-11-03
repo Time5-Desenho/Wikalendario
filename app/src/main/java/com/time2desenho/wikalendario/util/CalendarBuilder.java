@@ -2,7 +2,9 @@ package com.time2desenho.wikalendario.util;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.DrawableWrapper;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
@@ -20,7 +22,11 @@ public abstract class CalendarBuilder {
         bundle.putInt(CaldroidFragment.YEAR, calendar.get(Calendar.YEAR));
         caldroidFragment.setArguments(bundle);
 
-        HashMap<Date, Drawable> paintedDates = createPaintedDates();
+        Log.d("Entrou", "passou 1");
+        HashMap<Date, Drawable> paintedDates = createPaintedDates(context);
+        Log.d("Entrou", "passou 2");
+
+        Log.d("Size", "size = " + paintedDates.size());
 
         caldroidFragment.setBackgroundDrawableForDates(paintedDates);
 
@@ -31,6 +37,6 @@ public abstract class CalendarBuilder {
         return caldroidFragment;
     }
 
-    protected abstract HashMap<Date, Drawable> createPaintedDates();
+    protected abstract HashMap<Date, Drawable> createPaintedDates(final Context context);
     protected abstract CaldroidListener createCaldroidListener(final Context context);
 }

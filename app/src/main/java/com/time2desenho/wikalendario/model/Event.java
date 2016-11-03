@@ -15,9 +15,13 @@ public class Event {
     // Attributes.
 
     public final static String EVENTS_TABLE = "events";
+    public final static String EVENT_ID = "event_id";
     public final static String TITLE = "event_title";
     public final static String DESCRIPTION = "description";
     public final static String DATE = "date";
+
+    @DatabaseField(generatedId = true, columnName = EVENT_ID)
+    Long id;
 
     @DatabaseField(columnName = TITLE)
     private String title;
@@ -88,5 +92,13 @@ public class Event {
 
     public void setGroup(Group group) {
         this.group = group;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
