@@ -2,6 +2,8 @@ package com.time2desenho.wikalendario.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteConstraintException;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,16 +14,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.j256.ormlite.android.AndroidConnectionSource;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.time2desenho.wikalendario.R;
 import com.time2desenho.wikalendario.dao.ClassDatabaseHelper;
+import com.time2desenho.wikalendario.dao.DatabaseHelper;
 import com.time2desenho.wikalendario.model.Class;
 import com.time2desenho.wikalendario.util.UserHelper;
 import com.time2desenho.wikalendario.dao.UserDatabaseHelper;
 import com.time2desenho.wikalendario.model.User;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Iterator;
 
 import static com.time2desenho.wikalendario.dao.DatabaseHelper.DATABASE_NAME;
 
@@ -78,7 +86,7 @@ public class CreateUserActivity extends AppCompatActivity {
         return listener;
     }
 
-    private void createUser(){
+    private void createUser() {
         User user = helper.getUser();
 
         try {
@@ -86,8 +94,9 @@ public class CreateUserActivity extends AppCompatActivity {
 
             Log.d("Create", "creating");
             UserDatabaseHelper userDatabaseHelper = new UserDatabaseHelper(this);
+
             Dao<User, Long> userDAO = userDatabaseHelper.getDAO();
-            userDAO.createOrUpdate(user);
+            userDAO.create(user);
             Log.d("Create", "created");
 
             Log.d("Create", "creating class1");
@@ -100,10 +109,11 @@ public class CreateUserActivity extends AppCompatActivity {
             User firstUser = new User("joao", "joao18araujo","joao18araujo@gmail.com", "12345678");
             firstUser.setId(1L);
             userDAO.createOrUpdate(firstUser);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException e){
+            Throwable code = e.getCause();
+            String error = code.getCause().getMessage();
+            Log.d("CPD", error);
         }
-
 
         Intent goToForm = new Intent(CreateUserActivity.this, MainActivity.class);
         goToForm.putExtra("user", user);

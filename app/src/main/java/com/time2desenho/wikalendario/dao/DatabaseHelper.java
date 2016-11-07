@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
+import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.time2desenho.wikalendario.model.Class;
@@ -14,13 +15,23 @@ import com.time2desenho.wikalendario.model.User;
 import com.time2desenho.wikalendario.model.UserClass;
 import com.time2desenho.wikalendario.model.UserGroup;
 
-public abstract class DatabaseHelper extends OrmLiteSqliteOpenHelper{
-    public static final String DATABASE_NAME = "Wikalendario";
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class DatabaseHelper extends OrmLiteSqliteOpenHelper{
+    public static final String DATABASE_NAME = "sql3143440";
     public static final int DATABASE_VERSION = 1;
+    public static final String HOST = "sql3.freemysqlhosting.net";
+    public static final String DATABASE_USERNAME = "sql3143440";
+    public static final String PORT = "3306";
+    public static final String DATABASE_PASSWORD = "NfjLTEQYa1";
+
 
     @Override
     public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
         try {
+            connectionSource = new JdbcConnectionSource("jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE_NAME, DATABASE_USERNAME, DATABASE_PASSWORD);
             TableUtils.createTableIfNotExists(connectionSource, User.class);
             TableUtils.createTableIfNotExists(connectionSource, Subject.class);
             TableUtils.createTableIfNotExists(connectionSource, Class.class);
@@ -44,6 +55,8 @@ public abstract class DatabaseHelper extends OrmLiteSqliteOpenHelper{
             TableUtils.dropTable(connectionSource, Event.class, false);
             TableUtils.dropTable(connectionSource, UserClass.class, false);
             TableUtils.dropTable(connectionSource, UserGroup.class, false);
+
+            onCreate(db, connectionSource);
         }catch (java.sql.SQLException e){
             e.printStackTrace();
         }
@@ -51,5 +64,17 @@ public abstract class DatabaseHelper extends OrmLiteSqliteOpenHelper{
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    public Connection connectToDB() throws ClassNotFoundException,SQLException {
+        Connection connection = null;
+
+        java.lang.Class.forName("com.mysql.jdbc.Driver");
+
+        connection = DriverManager.getConnection(
+                "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE_USERNAME,
+                DATABASE_USERNAME, DATABASE_PASSWORD);
+
+        return connection;
     }
 }

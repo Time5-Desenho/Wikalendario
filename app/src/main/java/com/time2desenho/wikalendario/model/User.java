@@ -23,10 +23,10 @@ public class User implements Serializable {
     @DatabaseField(columnName = USER_NAME)
     private String name;
 
-    @DatabaseField(columnName = USERNAME)
+    @DatabaseField(columnName = USERNAME, unique = true)
     private String username;
 
-    @DatabaseField(columnName = EMAIL)
+    @DatabaseField(columnName = EMAIL, unique = true)
     private String email;
 
     @DatabaseField(columnName = PASSWORD)

@@ -31,10 +31,10 @@ public class Class{
     private String teacher;
 
     @ForeignCollectionField(columnName = CLASS_EVENTS)
-    ForeignCollection<Event> events;
+    private ForeignCollection<Event> events;
 
     @ForeignCollectionField(columnName = CLASS_GROUPS)
-    ForeignCollection<Group> groups;
+    private ForeignCollection<Group> groups;
 
     public Class(){
 

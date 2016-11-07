@@ -12,7 +12,7 @@ import java.lang.*;
 import static com.time2desenho.wikalendario.model.Subject.SUBJECTS_TABLE;
 
 @DatabaseTable(tableName = SUBJECTS_TABLE)
-public class Subject {
+public class Subject{
 
     private static final String REGEX = "\\d+";
     private static final String TAG = "Subject";
