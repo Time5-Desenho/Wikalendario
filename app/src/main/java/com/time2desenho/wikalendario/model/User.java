@@ -20,16 +20,16 @@ public class User implements Serializable {
     @DatabaseField(generatedId = true, columnName = USER_ID)
     private Long id;
 
-    @DatabaseField(columnName = USER_NAME)
+    @DatabaseField(columnName = USER_NAME, canBeNull = false)
     private String name;
 
-    @DatabaseField(columnName = USERNAME, unique = true)
+    @DatabaseField(columnName = USERNAME, unique = true, canBeNull = false)
     private String username;
 
-    @DatabaseField(columnName = EMAIL, unique = true)
+    @DatabaseField(columnName = EMAIL, unique = true, canBeNull = false)
     private String email;
 
-    @DatabaseField(columnName = PASSWORD)
+    @DatabaseField(columnName = PASSWORD, canBeNull = false)
     private String password;
 
     public User() {

@@ -24,10 +24,10 @@ public class Subject{
     public final static String CODE = "code";
 
 
-    @DatabaseField(generatedId = true)
+    @DatabaseField(generatedId = true, columnName = SUBJECT_ID)
     private Long id;
 
-    @DatabaseField(columnName = SUBJECT_NAME)
+    @DatabaseField(columnName = SUBJECT_NAME, canBeNull = false)
     private String name;
 
     @ForeignCollectionField(columnName = SUBJECT_CLASSES)

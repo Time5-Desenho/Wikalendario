@@ -129,4 +129,12 @@
     <string name="title_activity_day">DayActivity</string>
     <string name="user_table">userTable</string>
     <string name="confirmation">CONFIRMAR</string>
+    <string name="user_already_registered">Nome de usuário já cadastrado</string>
+    <string name="email_already_registered">E-mail já cadastrado</string>
+    <string name="code_2067">" (code 2067)"</string>
+    <string name="not_matching_passwords">As senhas não conferem</string>
+    <string name="blank_name">Nome em branco</string>
+    <string name="blank_email">E-mail em branco</string>
+    <string name="blank_username">Usuário em branco</string>
+    <string name="blank_password">Senha em branco</string>
 </resources>
