@@ -4,13 +4,10 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.widget.EditText;
 
-import com.j256.ormlite.dao.Dao;
 import com.time2desenho.wikalendario.R;
 import com.time2desenho.wikalendario.activity.CreateUserActivity;
-import com.time2desenho.wikalendario.dao.UserDatabaseHelper;
+import com.time2desenho.wikalendario.activity.EditUserActivity;
 import com.time2desenho.wikalendario.model.User;
-
-import java.sql.SQLException;
 
 public class UserHelper {
 
@@ -23,21 +20,6 @@ public class UserHelper {
     private final String EMPTY_STRING = "";
     private User user;
 
-    //TODO substituir qq chamada dessa função pela chamada de usuário logado
-    public static User getFirstUser(Context context){
-        UserDatabaseHelper userDatabaseHelper = new UserDatabaseHelper(context);
-
-        User user = new User();
-        try {
-            Dao<User, Long> userDAO = userDatabaseHelper.getDAO();
-            user = userDAO.queryForId(1L);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return user;
-    }
-
     public UserHelper(CreateUserActivity activity){
         nameField  = (EditText) activity.findViewById(R.id.name);
         emailField  = (EditText) activity.findViewById(R.id.email);
@@ -48,10 +30,26 @@ public class UserHelper {
         user = new User();
     }
 
-    public User getUser(Context context) throws IllegalArgumentException{
-        String name = nameField.getText().toString();
-        String email = emailField.getText().toString();
-        String username = usernameField.getText().toString();
+    public UserHelper(EditUserActivity activity){
+        nameField  = (EditText) activity.findViewById(R.id.name);
+        emailField  = (EditText) activity.findViewById(R.id.email);
+        usernameField  = (EditText) activity.findViewById(R.id.username);
+        passwordField = new EditText(activity);
+        confirmPasswordField = new EditText(activity);
+
+        user = new User();
+    }
+
+    public void setUser(Context context){
+        User user = SessionSingleton.getInstance(context).getLoggedUser(context);
+        nameField.setText(user.getName());
+        emailField.setText(user.getEmail());
+        usernameField.setText(user.getUsername());
+    }
+
+    public User getNewUser(Context context) throws  IllegalArgumentException{
+        User user = getUser(context);
+
         String password = passwordField.getText().toString();
         String passwordConfirmation = confirmPasswordField.getText().toString();
 
@@ -61,20 +59,33 @@ public class UserHelper {
             throw new IllegalArgumentException(resources.getString(R.string.not_matching_passwords));
         }
 
+        if(password.equals(EMPTY_STRING)){
+            throw new IllegalArgumentException(resources.getString(R.string.blank_password));
+        }
+
+        user.setPassword(password);
+
+        return user;
+    }
+
+    public User getUser(Context context) throws IllegalArgumentException{
+        String name = nameField.getText().toString();
+        String email = emailField.getText().toString();
+        String username = usernameField.getText().toString();
+
+        Resources resources = context.getResources();
+
         if(name.equals(EMPTY_STRING)){
             throw new IllegalArgumentException(resources.getString(R.string.blank_name));
         }else if(email.equals(EMPTY_STRING)){
             throw new IllegalArgumentException(resources.getString(R.string.blank_email));
         }else if(username.equals(EMPTY_STRING)){
             throw new IllegalArgumentException(resources.getString(R.string.blank_username));
-        }else if(password.equals(EMPTY_STRING)){
-            throw new IllegalArgumentException(resources.getString(R.string.blank_password));
         }
 
         user.setName(name);
         user.setEmail(email);
         user.setUsername(username);
-        user.setPassword(password);
 
         return user;
     }

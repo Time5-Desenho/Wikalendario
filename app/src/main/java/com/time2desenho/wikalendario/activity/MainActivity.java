@@ -28,6 +28,7 @@ import com.time2desenho.wikalendario.model.Class;
 import com.time2desenho.wikalendario.model.Event;
 import com.time2desenho.wikalendario.model.Group;
 import com.time2desenho.wikalendario.model.Subject;
+import com.time2desenho.wikalendario.model.User;
 import com.time2desenho.wikalendario.util.CalendarBuilder;
 import com.time2desenho.wikalendario.util.FullCalendarBuilder;
 import com.time2desenho.wikalendario.R;
@@ -57,9 +58,12 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        User user = SessionSingleton.getInstance(this).getLoggedUser(this);
+
         context = this;
         helloText = (TextView) findViewById(R.id.helloText);
-        helloText.setText("Olá, " + SessionSingleton.getInstance(this).getLoggedUser(this).getName());
+        helloText.setText("Olá, " + user.getName());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -81,6 +85,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View header = navigationView.getHeaderView(0);
 
         //TODO Colocar eventos de verdade
         try {
@@ -123,6 +129,9 @@ public class MainActivity extends AppCompatActivity
         t.replace(R.id.calendar1, caldroidFragment);
         t.commit();
         //Fragment do calendario
+
+        ((TextView) header.findViewById(R.id.userNameToolbar)).setText(user.getName());
+        ((TextView) header.findViewById(R.id.userEmailToolbar)).setText(user.getEmail());
     }
 
     public Context getContext(){
@@ -156,6 +165,8 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(MainActivity.this, EditUserActivity.class);
+            startActivity(intent);
             return true;
         }
 

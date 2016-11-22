@@ -45,8 +45,11 @@ public class UsersController {
         }
     }
 
-    public void updateUser(User user, Context context){
+    public void updateUser(User loggedUser, User user, Context context){
         Resources resources = context.getResources();
+
+        user.setId(loggedUser.getId());
+        user.setPassword(loggedUser.getPassword());
 
         try {
             userDAO.update(user);
@@ -64,6 +67,7 @@ public class UsersController {
     }
 
     private void sqlExceptionTreatment(SQLException e, Resources resources) throws IllegalArgumentException{
+        e.printStackTrace();
         Throwable t = e.getCause();
         if(t != null){
             t = t.getCause();

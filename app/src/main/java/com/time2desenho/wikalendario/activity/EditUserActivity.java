@@ -19,7 +19,7 @@ import com.time2desenho.wikalendario.util.UsersController;
 import com.time2desenho.wikalendario.model.User;
 import com.time2desenho.wikalendario.util.UserHelper;
 
-public class CreateUserActivity extends AppCompatActivity {
+public class EditUserActivity extends AppCompatActivity {
 
     private UserHelper helper;
     private Button confirmationButton;
@@ -36,11 +36,13 @@ public class CreateUserActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.userEmailToolbar)).setText(user.getEmail());
         */
 
-        if(SessionSingleton.getInstance(this).isLoggedIn()){
-            Intent goToForm = new Intent(CreateUserActivity.this, MainActivity.class);
+        if(!SessionSingleton.getInstance(this).isLoggedIn()){
+            //TODO mudar pra ir pra login
+            Intent goToForm = new Intent(EditUserActivity.this, CreateUserActivity.class);
             startActivity(goToForm);
         }
-        setContentView(R.layout.activity_create_user);
+
+        setContentView(R.layout.activity_edit_user);
 
         helper = new UserHelper(this);
         usersController = new UsersController(this);
@@ -54,6 +56,8 @@ public class CreateUserActivity extends AppCompatActivity {
         context = this;
         confirmationButton = (Button) findViewById(R.id.confirmation_button);
         confirmationButton.setOnClickListener(onConfirmationButtonClick());
+
+        helper.setUser(this);
     }
 
     @Override
@@ -68,7 +72,7 @@ public class CreateUserActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.sigin_menu:
-                createUser();
+                editUser();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -79,26 +83,27 @@ public class CreateUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 Log.d("CLICK", "Clicked");
-                createUser();
+                editUser();
             }
         };
 
         return listener;
     }
 
-    private void createUser() {
+    private void editUser() {
         User user;
         try {
-            user = helper.getNewUser(this);
-            usersController.createUser(user, getContext());
+            user = helper.getUser(this);
+            User loggedUser = SessionSingleton.getInstance(getContext()).getLoggedUser(getContext());
+            usersController.updateUser(loggedUser, user, getContext());
+            Log.d("RASEN", "SHURIKEN");
+            SessionSingleton.getInstance(this).login(user.getId(), this);
         }catch (IllegalArgumentException e){
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Intent goToForm = new Intent(CreateUserActivity.this, MainActivity.class);
-        goToForm.putExtra("user", user);
-        SessionSingleton.getInstance(this).login(user.getId(), this);
+        Intent goToForm = new Intent(EditUserActivity.this, MainActivity.class);
         startActivity(goToForm);
     }
 

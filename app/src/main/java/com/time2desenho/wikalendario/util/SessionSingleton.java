@@ -44,10 +44,12 @@ public class SessionSingleton{
         editor = sharedPreferences.edit();
     }
 
-    public void login(Long id){
+    public void login(Long id, Context context){
         editor.putBoolean(KEY_IS_LOGGED, true);
         editor.putLong(KEY_LOGGED_USER, id);
         editor.commit();
+
+        UserDatabaseHelper userDatabaseHelper = new UserDatabaseHelper(context);
     }
 
     public void logout(){
