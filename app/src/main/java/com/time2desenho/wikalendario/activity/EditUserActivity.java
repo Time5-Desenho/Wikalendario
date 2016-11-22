@@ -1,8 +1,10 @@
 package com.time2desenho.wikalendario.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -23,6 +25,7 @@ public class EditUserActivity extends AppCompatActivity {
 
     private UserHelper helper;
     private Button confirmationButton;
+    private Button deleteButton;
     private Context context;
     private UsersController usersController;
 
@@ -37,9 +40,10 @@ public class EditUserActivity extends AppCompatActivity {
         */
 
         if(!SessionSingleton.getInstance(this).isLoggedIn()){
-            //TODO mudar pra ir pra login
-            Intent goToForm = new Intent(EditUserActivity.this, CreateUserActivity.class);
+            Intent goToForm = new Intent(EditUserActivity.this, LoginActivity.class);
             startActivity(goToForm);
+            finish();
+            return;
         }
 
         setContentView(R.layout.activity_edit_user);
@@ -56,6 +60,8 @@ public class EditUserActivity extends AppCompatActivity {
         context = this;
         confirmationButton = (Button) findViewById(R.id.confirmation_button);
         confirmationButton.setOnClickListener(onConfirmationButtonClick());
+        deleteButton = (Button) findViewById(R.id.delete_account);
+        deleteButton.setOnClickListener(onDeleteButtonClick());
 
         helper.setUser(this);
     }
@@ -88,6 +94,34 @@ public class EditUserActivity extends AppCompatActivity {
         };
 
         return listener;
+    }
+
+    private View.OnClickListener onDeleteButtonClick(){
+        View.OnClickListener listener = new Button.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                new AlertDialog.Builder(EditUserActivity.this)
+                        .setMessage("Você tem certeza que deseja deletar sua conta?")
+                        .setCancelable(false)
+                        .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                deleteUser();
+                                SessionSingleton.getInstance(EditUserActivity.this).logout();
+                                Intent intent = new Intent(EditUserActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton("Não", null)
+                        .show();
+            }
+        };
+
+        return listener;
+    }
+
+    private void deleteUser() {
+        User user = SessionSingleton.getInstance(this).getLoggedUser(this);
+        usersController.deleteUser(user);
     }
 
     private void editUser() {

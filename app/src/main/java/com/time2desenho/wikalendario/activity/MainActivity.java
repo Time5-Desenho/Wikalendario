@@ -58,6 +58,11 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if(!SessionSingleton.getInstance(this).isLoggedIn()){
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+            return;
+        }
 
         User user = SessionSingleton.getInstance(this).getLoggedUser(this);
 
