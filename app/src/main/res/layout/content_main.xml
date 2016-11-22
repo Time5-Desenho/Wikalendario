@@ -12,11 +12,18 @@
     tools:context="com.time2desenho.wikalendario.activity.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
+    <TextView
+        android:id="@+id/helloText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Olá,"
+        android:textSize="30sp" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/calendar1"
-        android:layout_below="@id/app_bar">
+        android:layout_below="@id/helloText">
     </FrameLayout>
 
 </RelativeLayout>

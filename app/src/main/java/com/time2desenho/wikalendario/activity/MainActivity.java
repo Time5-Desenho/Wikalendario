@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.table.TableUtils;
@@ -30,6 +31,7 @@ import com.time2desenho.wikalendario.model.Subject;
 import com.time2desenho.wikalendario.util.CalendarBuilder;
 import com.time2desenho.wikalendario.util.FullCalendarBuilder;
 import com.time2desenho.wikalendario.R;
+import com.time2desenho.wikalendario.util.SessionSingleton;
 
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity
 
     private static final String TAG = "MainActivity";
     private Context context;
+    private TextView helloText;
 
     //TODO tirar essas DAOS
     Dao<Event, Long> eventsDAO;
@@ -55,6 +58,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         context = this;
+        helloText = (TextView) findViewById(R.id.helloText);
+        helloText.setText("Olá, " + SessionSingleton.getInstance(this).getLoggedUser(this).getName());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

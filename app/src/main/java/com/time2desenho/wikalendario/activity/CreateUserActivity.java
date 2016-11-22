@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.time2desenho.wikalendario.R;
+import com.time2desenho.wikalendario.util.SessionSingleton;
 import com.time2desenho.wikalendario.util.UsersController;
 import com.time2desenho.wikalendario.model.User;
 import com.time2desenho.wikalendario.util.UserHelper;
@@ -85,6 +86,7 @@ public class CreateUserActivity extends AppCompatActivity {
 
         Intent goToForm = new Intent(CreateUserActivity.this, MainActivity.class);
         goToForm.putExtra("user", user);
+        SessionSingleton.getInstance(this).login(user.getId());
         startActivity(goToForm);
     }
 

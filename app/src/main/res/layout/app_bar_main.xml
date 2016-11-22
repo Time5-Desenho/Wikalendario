@@ -27,6 +27,6 @@
         android:layout_margin="@dimen/fab_margin"
         android:text="+"
         android:textColor="#FFFFFF"
-        android:textSize="40sp"/>
+        android:textSize="400sp"/>
 
 </android.support.design.widget.CoordinatorLayout>
