@@ -1,4 +1,4 @@
-package com.time2desenho.wikalendario.activity;
+package com.time2desenho.wikalendario.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,8 +13,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.j256.ormlite.dao.Dao;
-import com.time2desenho.wikalendario.util.CSVReader;
-import com.time2desenho.wikalendario.util.ClassReader;
+import com.time2desenho.wikalendario.controller.CSVReader;
+import com.time2desenho.wikalendario.controller.ClassReader;
 import com.time2desenho.wikalendario.R;
 import com.time2desenho.wikalendario.dao.SubjectDatabaseHelper;
 import com.time2desenho.wikalendario.model.Subject;

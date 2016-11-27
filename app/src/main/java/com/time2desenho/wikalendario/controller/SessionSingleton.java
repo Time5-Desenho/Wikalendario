@@ -1,4 +1,4 @@
-package com.time2desenho.wikalendario.util;
+package com.time2desenho.wikalendario.controller;
 
 import android.content.Context;
 import android.content.SharedPreferences;

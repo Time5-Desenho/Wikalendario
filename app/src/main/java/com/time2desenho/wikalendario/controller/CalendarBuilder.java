@@ -1,8 +1,7 @@
-package com.time2desenho.wikalendario.util;
+package com.time2desenho.wikalendario.controller;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.DrawableWrapper;
 import android.os.Bundle;
 import android.util.Log;
 

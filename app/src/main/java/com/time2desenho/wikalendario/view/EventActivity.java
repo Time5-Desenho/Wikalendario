@@ -1,4 +1,4 @@
-package com.time2desenho.wikalendario.activity;
+package com.time2desenho.wikalendario.view;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

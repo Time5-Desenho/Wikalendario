@@ -1,4 +1,4 @@
-package com.time2desenho.wikalendario.activity;
+package com.time2desenho.wikalendario.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,9 +15,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.time2desenho.wikalendario.R;
-import com.time2desenho.wikalendario.model.Class;
 import com.time2desenho.wikalendario.model.Event;
-import com.time2desenho.wikalendario.model.Group;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

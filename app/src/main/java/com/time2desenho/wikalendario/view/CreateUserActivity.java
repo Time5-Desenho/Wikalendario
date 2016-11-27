@@ -1,4 +1,4 @@
-package com.time2desenho.wikalendario.activity;
+package com.time2desenho.wikalendario.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,14 +10,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.time2desenho.wikalendario.R;
-import com.time2desenho.wikalendario.util.SessionSingleton;
-import com.time2desenho.wikalendario.util.UsersController;
+import com.time2desenho.wikalendario.controller.SessionSingleton;
+import com.time2desenho.wikalendario.controller.UsersController;
 import com.time2desenho.wikalendario.model.User;
-import com.time2desenho.wikalendario.util.UserHelper;
+import com.time2desenho.wikalendario.controller.UserHelper;
 
 public class CreateUserActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.time2desenho.wikalendario.util;
+package com.time2desenho.wikalendario.controller;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,12 +10,11 @@ import android.view.View;
 
 import com.j256.ormlite.dao.Dao;
 import com.roomorama.caldroid.CaldroidListener;
-import com.time2desenho.wikalendario.activity.DayActivity;
+import com.time2desenho.wikalendario.view.DayActivity;
 import com.time2desenho.wikalendario.dao.EventDatabaseHelper;
 import com.time2desenho.wikalendario.model.Event;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
