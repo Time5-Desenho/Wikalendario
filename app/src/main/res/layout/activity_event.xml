@@ -49,7 +49,7 @@
         android:layout_marginTop="30dp"
         android:id="@+id/eventClass" />
 
-    <EditText
+    <!--<EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="text"
@@ -58,7 +58,13 @@
         android:layout_below="@+id/eventClass"
         android:layout_alignStart="@+id/eventClass"
         android:layout_marginTop="30dp"
-        android:id="@+id/eventDate" />
+        android:id="@+id/eventDate" /> !-->
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pick_date"
+        android:onClick="showDatePickerDialog" />
 
     <Button
         android:text="Criar"

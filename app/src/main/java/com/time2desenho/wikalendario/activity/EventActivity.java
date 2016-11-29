@@ -2,6 +2,7 @@ package com.time2desenho.wikalendario.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.DialogFragment;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import com.time2desenho.wikalendario.dao.SubjectDatabaseHelper;
 import com.time2desenho.wikalendario.model.Class;
 import com.time2desenho.wikalendario.model.Event;
 import com.time2desenho.wikalendario.model.Group;
+import com.time2desenho.wikalendario.activity.DatePickerFragment;
 
 import java.util.Date;
 
@@ -86,6 +88,10 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
         eventCreate.setOnClickListener(this);
     }
 
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
 
     @Override
     public void onClick(View view) {

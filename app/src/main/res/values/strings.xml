@@ -6,6 +6,8 @@
 
     <string name="show_code"><b>Código:</b> </string>
     <string name="show_name"><b>Nome:</b> </string>
+    
+    <string name="pick_date">Selecionar data</string>
 
     <string name="action_settings">Settings</string>
 
