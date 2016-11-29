@@ -1,4 +1,4 @@
-package com.time2desenho.wikalendario.activity;
+package com.time2desenho.wikalendario.view;
 
 import android.content.Context;
 import android.content.Intent;

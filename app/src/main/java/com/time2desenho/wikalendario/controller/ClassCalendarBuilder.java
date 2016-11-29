@@ -1,4 +1,4 @@
-package com.time2desenho.wikalendario.util;
+package com.time2desenho.wikalendario.controller;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 
 import com.roomorama.caldroid.CaldroidListener;
-import com.time2desenho.wikalendario.activity.DayActivity;
+import com.time2desenho.wikalendario.view.DayActivity;
 
 import java.util.Date;
 import java.util.HashMap;

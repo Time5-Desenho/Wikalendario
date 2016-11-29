@@ -1,4 +1,4 @@
-package com.time2desenho.wikalendario.activity;
+package com.time2desenho.wikalendario.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +9,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.ExploreByTouchHelper;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,27 +19,20 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.table.TableUtils;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.time2desenho.wikalendario.dao.ClassDatabaseHelper;
 import com.time2desenho.wikalendario.dao.EventDatabaseHelper;
 import com.time2desenho.wikalendario.model.Class;
 import com.time2desenho.wikalendario.model.Event;
-import com.time2desenho.wikalendario.model.Group;
-import com.time2desenho.wikalendario.model.Subject;
 import com.time2desenho.wikalendario.model.User;
-import com.time2desenho.wikalendario.util.CalendarBuilder;
-import com.time2desenho.wikalendario.util.FullCalendarBuilder;
+import com.time2desenho.wikalendario.controller.CalendarBuilder;
+import com.time2desenho.wikalendario.controller.FullCalendarBuilder;
 import com.time2desenho.wikalendario.R;
-import com.time2desenho.wikalendario.util.SessionSingleton;
+import com.time2desenho.wikalendario.controller.SessionSingleton;
 
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-
-import static java.lang.System.exit;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

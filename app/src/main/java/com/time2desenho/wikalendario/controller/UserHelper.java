@@ -1,12 +1,12 @@
-package com.time2desenho.wikalendario.util;
+package com.time2desenho.wikalendario.controller;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.widget.EditText;
 
 import com.time2desenho.wikalendario.R;
-import com.time2desenho.wikalendario.activity.CreateUserActivity;
-import com.time2desenho.wikalendario.activity.EditUserActivity;
+import com.time2desenho.wikalendario.view.CreateUserActivity;
+import com.time2desenho.wikalendario.view.EditUserActivity;
 import com.time2desenho.wikalendario.model.User;
 
 public class UserHelper {
