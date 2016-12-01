@@ -16,6 +16,7 @@ import com.j256.ormlite.dao.Dao;
 import com.time2desenho.wikalendario.controller.CSVReader;
 import com.time2desenho.wikalendario.controller.ClassReader;
 import com.time2desenho.wikalendario.R;
+import com.time2desenho.wikalendario.controller.SubjectController;
 import com.time2desenho.wikalendario.dao.SubjectDatabaseHelper;
 import com.time2desenho.wikalendario.model.Subject;
 
@@ -23,18 +24,10 @@ import java.util.ArrayList;
 
 public class SubjectsActivity extends AppCompatActivity {
 
-    private ArrayList<Subject> subjects;
     protected RecyclerView recyclerView;
     private final Context context = this;
-    private SubjectDatabaseHelper subjectDAO;
+    private SubjectController subjectController;
 
-    public ArrayList<Subject> getSubjects() {
-        return subjects;
-    }
-
-    public void setSubjects(ArrayList<Subject> subjects) {
-        this.subjects = subjects;
-    }
 
     public Context getContext(){
         return context;
@@ -50,22 +43,7 @@ public class SubjectsActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(R.string.subjects);
 
-        setSubjects(CSVReader.getSubjects(this, R.raw.lista));
-
-        try {
-            SubjectDatabaseHelper subjectDatabaseHelper = new SubjectDatabaseHelper(getContext());
-            Dao<Subject, Long> subjectDao = subjectDatabaseHelper.getDAO();
-            for (Subject subject : subjects) {
-                subjectDao.createOrUpdate(subject);
-            }
-        }catch (java.sql.SQLException e){
-            e.printStackTrace();
-        }
-
-        ClassReader.getSubjects(this, R.raw.turma);
-
-//        subjectDAO = new SubjectDatabaseHelper();
-//        setSubjects(subjectDAO.getSubjects());
+        subjectController = new SubjectController(this);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -77,14 +55,14 @@ public class SubjectsActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        recyclerView.setAdapter(new SubjectAdapter(this, subjects, onClickSubject()));
+        recyclerView.setAdapter(new SubjectAdapter(this, subjectController.getSubjects(), onClickSubject()));
     }
 
     public SubjectAdapter.SubjectOnClickListener onClickSubject(){
         return new SubjectAdapter.SubjectOnClickListener(){
             @Override
             public void onClickSubject(View view, int position){
-                Subject subject = subjects.get(position);
+                Subject subject = subjectController.getSubjects().get(position);
 
                 Intent intent = new Intent(getContext(), SubjectActivity.class);
                 intent.putExtra("name", subject.getName());

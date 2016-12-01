@@ -50,6 +50,9 @@ public class SessionSingleton{
         editor.commit();
 
         UserDatabaseHelper userDatabaseHelper = new UserDatabaseHelper(context);
+
+        SubjectController subjectController = new SubjectController(context);
+        subjectController.setSubjectsListOnDatabase(context);
     }
 
     public void logout(){
