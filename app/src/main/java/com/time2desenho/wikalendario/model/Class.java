@@ -45,6 +45,12 @@ public class Class{
         this.teacher = teacher;
     }
 
+    public Class(String letter, String teacher, Subject subject) {
+        this.letter = letter;
+        this.teacher = teacher;
+        this.subject = subject;
+    }
+
 
     public void addEvent(Event event){
         this.getEvents().add(event);

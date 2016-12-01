@@ -9,6 +9,7 @@ import com.time2desenho.wikalendario.model.Subject;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SubjectController {
 
@@ -53,6 +54,18 @@ public class SubjectController {
         } catch (java.sql.SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public Subject getSubject(Long code) {
+        List<Subject> subject = null;
+
+        try {
+            subject = subjectDao.queryForEq("code", code);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return subject.get(0);
     }
 
 }

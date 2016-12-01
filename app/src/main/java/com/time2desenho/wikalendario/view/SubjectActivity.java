@@ -13,6 +13,8 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.time2desenho.wikalendario.R;
+import com.time2desenho.wikalendario.controller.ClassController;
+import com.time2desenho.wikalendario.model.Class;
 import com.time2desenho.wikalendario.model.Subject;
 
 import static com.time2desenho.wikalendario.R.string.show_code;
@@ -22,6 +24,8 @@ public class SubjectActivity extends AppCompatActivity {
     private Subject subject;
     private TextView codeView;
     private TextView nameView;
+    private ClassController classController;
+    private Context context = this;
 
     private GoogleApiClient client;
 
@@ -30,13 +34,20 @@ public class SubjectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject2);
 
+        classController = new ClassController(context);
+
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
         String code = intent.getStringExtra("code");
+        String id = intent.getStringExtra("id");
 
         subject = new Subject(code, name);
         codeView = (TextView) findViewById(R.id.text_code);
         nameView = (TextView) findViewById(R.id.text_name);
+
+        for (Class mclass : classController.getSubjectClasses(id)) {
+            Log.d("CLASSES", mclass.getLetter() + " " + mclass.getSubject().getName() + " " + mclass.getTeacher());
+        }
 
         String text = getResources().getString(show_code) + code;
         codeView.setText(text);

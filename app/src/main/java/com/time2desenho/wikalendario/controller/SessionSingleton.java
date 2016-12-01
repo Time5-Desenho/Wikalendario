@@ -53,6 +53,9 @@ public class SessionSingleton{
 
         SubjectController subjectController = new SubjectController(context);
         subjectController.setSubjectsListOnDatabase(context);
+
+        ClassController classController = new ClassController(context);
+        classController.setClassesListOnDatabase(context);
     }
 
     public void logout(){

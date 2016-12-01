@@ -67,6 +67,7 @@ public class SubjectsActivity extends AppCompatActivity {
                 Intent intent = new Intent(getContext(), SubjectActivity.class);
                 intent.putExtra("name", subject.getName());
                 intent.putExtra("code", subject.getCode());
+                intent.putExtra("id", String.valueOf(subject.getId()));
                 startActivity(intent);
 
                 Toast.makeText(getContext(),"Subject: " + subject.getCode() + ":" + subject.getName()
