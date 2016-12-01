@@ -6,8 +6,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -17,13 +22,13 @@ import com.time2desenho.wikalendario.controller.ClassController;
 import com.time2desenho.wikalendario.model.Class;
 import com.time2desenho.wikalendario.model.Subject;
 
+import static com.time2desenho.wikalendario.R.id.recyclerView;
 import static com.time2desenho.wikalendario.R.string.show_code;
 
 public class SubjectActivity extends AppCompatActivity {
 
-    private Subject subject;
-    private TextView codeView;
-    private TextView nameView;
+    private RecyclerView recyclerView;
+
     private ClassController classController;
     private Context context = this;
 
@@ -41,28 +46,47 @@ public class SubjectActivity extends AppCompatActivity {
         String code = intent.getStringExtra("code");
         String id = intent.getStringExtra("id");
 
-        subject = new Subject(code, name);
-        codeView = (TextView) findViewById(R.id.text_code);
-        nameView = (TextView) findViewById(R.id.text_name);
+        classController.setCurrentSubject(Long.valueOf(id));
 
-        for (Class mclass : classController.getSubjectClasses(id)) {
+        for (Class mclass : classController.getSubjectClasses()) {
             Log.d("CLASSES", mclass.getLetter() + " " + mclass.getSubject().getName() + " " + mclass.getTeacher());
         }
 
-        String text = getResources().getString(show_code) + code;
-        codeView.setText(text);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setHasFixedSize(true);
 
-        text = "Nome: " + name;
-        nameView.setText(text);
+
         //    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //    setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setTitle("Disciplina");
 
-
-        Log.d("SubjectShow", subject.getName());
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        recyclerView.setAdapter(new ClassAdapter(this, classController.getSubjectClasses(), onClickClass()));
+    }
+
+    public ClassAdapter.ClassOnClickListener onClickClass(){
+        return new ClassAdapter.ClassOnClickListener(){
+            @Override
+            public void onClickClass(View view, int position){
+                 Class mClass = classController.getSubjectClasses().get(position);
+
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                intent.putExtra("id", String.valueOf(mClass.getIdClass()));
+                startActivity(intent);
+
+                Toast.makeText(getContext(),"Class: " + mClass.getLetter() + ":" + mClass.getTeacher()
+                        , Toast.LENGTH_SHORT).show();
+            }
+        };
     }
 
     public Context getContext() {

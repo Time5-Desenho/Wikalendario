@@ -7,6 +7,7 @@ import com.j256.ormlite.dao.Dao;
 import com.time2desenho.wikalendario.R;
 import com.time2desenho.wikalendario.dao.ClassDatabaseHelper;
 import com.time2desenho.wikalendario.model.Class;
+import com.time2desenho.wikalendario.model.Subject;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class ClassController {
     private ArrayList<Class> classes;
     private ClassDatabaseHelper classDatabaseHelper;
     private Dao<Class, Long> classDao;
+    private Long currentSubjectId;
 
     public ClassController(Context context){
         classDatabaseHelper = new ClassDatabaseHelper(context);
@@ -25,6 +27,14 @@ public class ClassController {
         }catch(SQLException e){
             e.printStackTrace();
         }
+    }
+
+    public Long getCurrentSubjectId() {
+        return currentSubjectId;
+    }
+
+    public void setCurrentSubject(Long currentSubjectId) {
+        this.currentSubjectId = currentSubjectId;
     }
 
     public ArrayList<Class> getClasses() {
@@ -49,11 +59,11 @@ public class ClassController {
         }
     }
 
-    public ArrayList<Class> getSubjectClasses(String id){
+    public ArrayList<Class> getSubjectClasses(){
         ArrayList<Class> classesList = null;
 
         try {
-            classesList = (ArrayList<Class>) classDao.queryForEq("subject_id", Long.valueOf(id));
+            classesList = (ArrayList<Class>) classDao.queryForEq("subject_id", currentSubjectId);
         } catch (SQLException e) {
             e.printStackTrace();
         }
