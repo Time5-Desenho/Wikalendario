@@ -16,8 +16,8 @@ import com.time2desenho.wikalendario.dao.SubjectDatabaseHelper;
 import com.time2desenho.wikalendario.model.Class;
 import com.time2desenho.wikalendario.model.Event;
 import com.time2desenho.wikalendario.model.Group;
-import com.time2desenho.wikalendario.activity.DatePickerFragment;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class EventActivity extends AppCompatActivity implements View.OnClickListener {
@@ -26,7 +26,7 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
     private EditText etEventTitle;
     private EditText etEventDescription;
     private EditText etEventClass;
-    private EditText etEventDate;
+    private TextView etEventDate;
     private Button eventCreate;
     private TextWatcher textWatcher;
     private Date date;
@@ -41,7 +41,11 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
-        init();
+
+        initViews();
+
+        setActualDate(etEventDate);
+
 
         switchAux.setChecked(true);
         //attach a listener to check for changes in state
@@ -71,18 +75,19 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private void init() {
+    private void initViews() {
         etEventTitle = (EditText)findViewById(R.id.eventTitle);
 
         etEventDescription = (EditText)findViewById(R.id.eventDescription);
 
         etEventClass = (EditText)findViewById(R.id.eventClass);
 
-        etEventDate = (EditText)findViewById(R.id.eventDate);
+        etEventDate = (TextView)findViewById(R.id.eventDate);
 
         eventCreate = (Button)findViewById(R.id.eventCreate);
 
         switchAux = (Switch) findViewById(R.id.switchGroup);
+
         switchGroup = (TextView) findViewById(R.id.switchStatus);
 
         eventCreate.setOnClickListener(this);
@@ -92,6 +97,17 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
+
+    private void setActualDate(TextView textView){
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+
+        textView.setText(day + " / " + month + " / " + year);
+    }
+
+
 
     @Override
     public void onClick(View view) {

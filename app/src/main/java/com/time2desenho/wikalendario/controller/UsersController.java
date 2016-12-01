@@ -16,6 +16,7 @@ import static com.time2desenho.wikalendario.model.User.EMAIL;
 import static com.time2desenho.wikalendario.model.User.USERNAME;
 
 public class UsersController {
+
     private UserDatabaseHelper userDatabaseHelper;
     private Dao<User, Long> userDAO;
 

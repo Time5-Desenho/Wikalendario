@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.time2desenho.wikalendario.activity.EventActivity">
+    tools:context="com.time2desenho.wikalendario.view.EventActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -36,7 +36,8 @@
         android:layout_below="@+id/eventTitle"
         android:layout_alignEnd="@+id/eventTitle"
         android:layout_marginTop="35dp"
-        android:id="@+id/eventDescription" />
+        android:id="@+id/eventDescription"
+        android:layout_alignRight="@+id/eventTitle" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -47,24 +48,20 @@
         android:layout_below="@+id/eventDescription"
         android:layout_alignStart="@+id/eventDescription"
         android:layout_marginTop="30dp"
-        android:id="@+id/eventClass" />
+        android:id="@+id/eventClass"
+        android:layout_alignLeft="@+id/eventDescription" />
 
-    <!--<EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:text="09/04/1997"
         android:ems="10"
         android:layout_below="@+id/eventClass"
         android:layout_alignStart="@+id/eventClass"
         android:layout_marginTop="30dp"
-        android:id="@+id/eventDate" /> !-->
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/pick_date"
-        android:onClick="showDatePickerDialog" />
+        android:id="@+id/eventDate"
+        android:layout_alignLeft="@+id/eventClass"
+        android:onClick="showDatePickerDialog"/>
 
     <Button
         android:text="Criar"
