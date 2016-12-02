@@ -13,53 +13,58 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Criar evento"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:ems="10"
+        android:layout_marginTop="20sp"
+        android:id="@+id/eventSubject"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_marginTop="10sp"
+        android:id="@+id/eventClass"
+        android:textAlignment="center"
+        android:layout_below="@+id/eventSubject"
+        android:layout_centerHorizontal="true"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Título"
+        android:hint="Título"
         android:ems="10"
-        android:layout_marginTop="58dp"
+        android:layout_marginTop="20sp"
         android:id="@+id/eventTitle"
+        android:layout_below="@+id/eventClass"
         android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:text="Descrição"
+        android:inputType="textMultiLine"
+        android:hint="Descrição"
         android:ems="10"
         android:layout_below="@+id/eventTitle"
         android:layout_alignEnd="@+id/eventTitle"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="20sp"
         android:id="@+id/eventDescription"
         android:layout_alignRight="@+id/eventTitle" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:ems="10"
-        android:layout_below="@+id/eventDescription"
-        android:layout_alignStart="@+id/eventDescription"
-        android:layout_marginTop="30dp"
-        android:id="@+id/eventClass"
-        android:layout_alignLeft="@+id/eventDescription" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="text"
         android:ems="10"
-        android:layout_below="@+id/eventClass"
-        android:layout_alignStart="@+id/eventClass"
+        android:textColor="@color/caldroid_black"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:layout_below="@+id/eventDescription"
+        android:layout_alignStart="@+id/eventDescription"
         android:layout_marginTop="30dp"
         android:id="@+id/eventDate"
-        android:layout_alignLeft="@+id/eventClass"
+        android:layout_alignLeft="@+id/eventDescription"
         android:onClick="showDatePickerDialog"/>
 
     <Button

@@ -36,7 +36,7 @@ public class EventsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(EventsActivity.this, EventActivity.class);
-                intent.putExtra("id", eventsController.getCurrentClass().getIdClass());
+                intent.putExtra("id", String.valueOf(eventsController.getCurrentClass().getIdClass()));
                 startActivity(intent);
             }
         });
