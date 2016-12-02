@@ -32,11 +32,10 @@ public class Notification {
 
     }
 
-    public Notification( int idNotification, String title, String description, String date){
+    public Notification(String title, String description, String date){
         setTitle(title);
         setDescription(description);
         setDate(date);
-        setIdNotification(idNotification);
     }
 
     public boolean validateTitle(String title){

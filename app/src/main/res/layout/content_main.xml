@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.time2desenho.wikalendario.activity.MainActivity"
+    tools:context="com.time2desenho.wikalendario.view.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
     <TextView
@@ -17,13 +17,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Olá,"
-        android:textSize="30sp" />
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"/>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/calendar1"
-        android:layout_below="@id/helloText">
+        android:layout_below="@id/helloText"
+        android:layout_marginTop="50sp">
     </FrameLayout>
 
 </RelativeLayout>

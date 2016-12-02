@@ -1,6 +1,9 @@
 package com.time2desenho.wikalendario.view;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.DialogFragment;
 import android.text.TextWatcher;
@@ -10,13 +13,19 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.time2desenho.wikalendario.R;
+import com.time2desenho.wikalendario.controller.EventsController;
+import com.time2desenho.wikalendario.controller.NotificationController;
 import com.time2desenho.wikalendario.dao.SubjectDatabaseHelper;
 import com.time2desenho.wikalendario.model.Class;
 import com.time2desenho.wikalendario.model.Event;
 import com.time2desenho.wikalendario.model.Group;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -25,7 +34,8 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
     // Variables to this class.
     private EditText etEventTitle;
     private EditText etEventDescription;
-    private EditText etEventClass;
+    private TextView etEventClass;
+    private TextView etEventSubject;
     private TextView etEventDate;
     private Button eventCreate;
     private TextWatcher textWatcher;
@@ -36,6 +46,8 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
     private Switch switchAux;
 
     private Event event;
+    private EventsController eventsController;
+    private Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +56,20 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
 
         initViews();
 
-        setActualDate(etEventDate);
+        setCurrentDate(etEventDate);
 
+        Intent intent = getIntent();
+        String id = intent.getStringExtra("id");
+
+        NotificationController notificationController = new NotificationController(context);
+
+        eventsController = new EventsController(context);
+        // Adding a observer that notifies new event
+        eventsController.attachObserver(notificationController);
+        eventsController.setCurrentClass(Long.valueOf(id), context);
+
+        etEventClass.setText(eventsController.getCurrentClass().getLetter() + " - " + eventsController.getCurrentClass().getTeacher());
+        etEventSubject.setText(eventsController.getCurrentClass().getSubject().getName());
 
         switchAux.setChecked(true);
         //attach a listener to check for changes in state
@@ -73,6 +97,10 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
             switchGroup.setText("Seu evento é público");
             group=false;
         }
+
+        ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setTitle("Criar Evento");
     }
 
     private void initViews() {
@@ -80,7 +108,9 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
 
         etEventDescription = (EditText)findViewById(R.id.eventDescription);
 
-        etEventClass = (EditText)findViewById(R.id.eventClass);
+        etEventClass = (TextView) findViewById(R.id.eventClass);
+
+        etEventSubject = (TextView) findViewById(R.id.eventSubject);
 
         etEventDate = (TextView)findViewById(R.id.eventDate);
 
@@ -98,7 +128,7 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
-    private void setActualDate(TextView textView){
+    private void setCurrentDate(TextView textView){
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
@@ -107,14 +137,9 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
         textView.setText(day + " / " + month + " / " + year);
     }
 
-
-
     @Override
     public void onClick(View view) {
         Event event = new Event();
-        //TODO mostrar turmas que ele tem e escolher pelo ID
-        Class eventClass = new Class();
-        Date date = new Date();
 
         if(group){
             //TODO colocar grupo certo do cara, como faremos isso é um dos muitos mistérios da vida
@@ -122,10 +147,21 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
             event.setGroup(group);
         }
 
+        DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        Date date = null;
+        try {
+            date = (Date)formatter.parse(etEventDate.getText().toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         event.setTitle(etEventTitle.getText().toString());
         event.setDescription(etEventDescription.getText().toString());
-        event.setEventClass(eventClass);
+        event.setEventClass(eventsController.getCurrentClass());
         event.setDate(date);
+
+        Toast.makeText(this, "Evento Criado!", Toast.LENGTH_SHORT).show();
+        finish();
 
         SubjectDatabaseHelper s = new SubjectDatabaseHelper(this);
 

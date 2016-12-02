@@ -20,13 +20,11 @@
         <activity
             android:name=".view.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.LoginActivity"
             android:label="@string/title_activity_login" />
-
-        <activity android:name=".view.EditUserActivity"/>
-
+        <activity android:name=".view.EditUserActivity" />
         <activity android:name=".view.CreateUserActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,7 +32,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
 
         <service android:name=".controller.NotificationService">
             <intent-filter>
@@ -79,7 +76,8 @@
         <activity
             android:name=".view.DayActivity"
             android:label="@string/title_activity_day"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".view.EventsActivity"></activity>
     </application>
 
 </manifest>

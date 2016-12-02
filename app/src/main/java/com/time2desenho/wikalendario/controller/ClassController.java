@@ -105,11 +105,23 @@ public class ClassController {
         }
     }
 
-    public void deleteClass(Class classes){
+    public void deleteClass(Class classes) {
         try {
             classDao.delete(classes);
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
+
+    }
+    public Class getClass(Long id) {
+        List<Class> classes = null;
+
+        try {
+            classes = classDao.queryForEq("class_id", id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return classes.get(0);
     }
 }

@@ -79,12 +79,12 @@ public class SubjectActivity extends AppCompatActivity {
             public void onClickClass(View view, int position){
                  Class mClass = classController.getSubjectClasses().get(position);
 
-                Intent intent = new Intent(getContext(), MainActivity.class);
+                Intent intent = new Intent(getContext(), EventsActivity.class);
                 intent.putExtra("id", String.valueOf(mClass.getIdClass()));
                 startActivity(intent);
 
-                Toast.makeText(getContext(),"Class: " + mClass.getLetter() + ":" + mClass.getTeacher()
-                        , Toast.LENGTH_SHORT).show();
+                /**Toast.makeText(getContext(),"Class: " + mClass.getLetter() + ":" + mClass.getTeacher()
+                        , Toast.LENGTH_SHORT).show();*/
             }
         };
     }

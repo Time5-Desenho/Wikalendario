@@ -13,9 +13,10 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 
 import com.time2desenho.wikalendario.R;
+import com.time2desenho.wikalendario.model.Event;
 import com.time2desenho.wikalendario.model.Notification;
 
-public class NotificationReceiver extends BroadcastReceiver {
+public class NotificationReceiver extends BroadcastReceiver implements EventObserver{
     @Override
     public void onReceive(Context context, Intent intent) {
         registerNotification(context,intent);
@@ -27,7 +28,6 @@ public class NotificationReceiver extends BroadcastReceiver {
 
         NotificationController notificationController = new NotificationController(context);
         Notification notification = notificationController.notificationByEvent();
-
 
         if(notification!=null) {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
@@ -55,5 +55,10 @@ public class NotificationReceiver extends BroadcastReceiver {
     public Bitmap selectIconNotification(Context context){
         int idImage = R.drawable.icon_notification_2;
         return BitmapFactory.decodeResource(context.getResources(), idImage);
+    }
+
+    @Override
+    public void notifyNewEvent(Event event) {
+
     }
 }
