@@ -7,7 +7,10 @@ import android.util.Log;
 import com.j256.ormlite.dao.Dao;
 import com.time2desenho.wikalendario.R;
 import com.time2desenho.wikalendario.dao.UserDatabaseHelper;
+import com.time2desenho.wikalendario.model.Class;
+import com.time2desenho.wikalendario.model.Group;
 import com.time2desenho.wikalendario.model.User;
+import com.time2desenho.wikalendario.util.ManyToManyDAOFacade;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -57,6 +60,22 @@ public class UsersController {
         }catch(SQLException e){
             sqlExceptionTreatment(e, resources);
         }
+    }
+
+    public User readUser(Long id, Context context){
+        User user = new User();
+        try {
+            user = userDAO.queryForId(id);
+            ManyToManyDAOFacade manyToManyDAOFacade = new ManyToManyDAOFacade(context);
+            List<Class> classes = manyToManyDAOFacade.getClasses(user);
+            List<Group> groups = manyToManyDAOFacade.getGroups(user);
+            user.setClasses(classes);
+            user.setGroups(groups);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 
     public void deleteUser(User user){

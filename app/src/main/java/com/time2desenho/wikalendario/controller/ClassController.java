@@ -7,10 +7,12 @@ import com.j256.ormlite.dao.Dao;
 import com.time2desenho.wikalendario.R;
 import com.time2desenho.wikalendario.dao.ClassDatabaseHelper;
 import com.time2desenho.wikalendario.model.Class;
-import com.time2desenho.wikalendario.model.Subject;
+import com.time2desenho.wikalendario.model.User;
+import com.time2desenho.wikalendario.util.ManyToManyDAOFacade;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ClassController {
 
@@ -69,5 +71,45 @@ public class ClassController {
         }
 
         return classesList;
+    }
+
+    public void createClass(Class classes) throws IllegalArgumentException{
+        try {
+            classDao.create(classes);
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public Class readClass(Long id, Context context){
+        Class classes = new Class();
+        try {
+            classes = classDao.queryForId(id);
+            ManyToManyDAOFacade manyToManyDAOFacade = new ManyToManyDAOFacade(context);
+            List<User> users = manyToManyDAOFacade.getUsers(classes);
+            classes.setUsers(users);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return classes;
+    }
+
+    public void updateClass(Class classes, Long id){
+        try {
+            classes.setIdClass(id);
+            classDao.update(classes);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteClass(Class classes){
+        try {
+            classDao.delete(classes);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
     }
 }

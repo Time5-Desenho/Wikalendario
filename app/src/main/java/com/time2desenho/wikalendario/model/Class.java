@@ -5,6 +5,8 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.util.List;
+
 import static com.time2desenho.wikalendario.model.Class.CLASSES_TABLE;
 import static com.time2desenho.wikalendario.model.Subject.SUBJECT_ID;
 
@@ -35,6 +37,16 @@ public class Class{
 
     @ForeignCollectionField(columnName = CLASS_GROUPS)
     private ForeignCollection<Group> groups;
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    List<User> users;
 
     public Class(){
 

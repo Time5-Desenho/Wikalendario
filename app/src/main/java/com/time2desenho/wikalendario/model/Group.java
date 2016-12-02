@@ -5,7 +5,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
-import java.lang.*;
+import java.util.List;
 
 import static com.time2desenho.wikalendario.model.Class.CLASS_ID;
 import static com.time2desenho.wikalendario.model.Group.GROUPS_TABLE;
@@ -17,7 +17,6 @@ public class Group {
     public final static String GROUP_ID = "group_id";
     public final static String GROUP_NAME = "group_name";
     public final static String GROUP_EVENTS = "group_events";
-
 
     @DatabaseField(generatedId = true, columnName = GROUP_ID)
     private Long id;
@@ -33,6 +32,16 @@ public class Group {
 
     //TODO associar com user n x n
     //TODO criar construtores
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    private List<User> users;
 
     public Group(){
 

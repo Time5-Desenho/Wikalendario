@@ -4,6 +4,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
+import java.util.List;
 
 import static com.time2desenho.wikalendario.model.User.USERS_TABLE;
 
@@ -31,6 +32,25 @@ public class User implements Serializable {
 
     @DatabaseField(columnName = PASSWORD, canBeNull = false)
     private String password;
+
+    public List<Class> getClasses() {
+        return classes;
+    }
+
+    public void setClasses(List<Class> classes) {
+        this.classes = classes;
+    }
+
+    public List<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
+    }
+
+    private List<Class> classes;
+    private List<Group> groups;
 
     public User() {
 
