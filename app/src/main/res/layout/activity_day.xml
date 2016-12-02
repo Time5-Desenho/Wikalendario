@@ -23,25 +23,5 @@
 
     <include layout="@layout/content_day" />
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end">
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fab_margin" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#ffffff"
-            android:text="+"
-            android:elevation="10sp"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

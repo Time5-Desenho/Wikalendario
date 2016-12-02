@@ -11,6 +11,7 @@ import com.time2desenho.wikalendario.model.Subject;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ClassController {
 
@@ -69,5 +70,17 @@ public class ClassController {
         }
 
         return classesList;
+    }
+
+    public Class getClass(Long id) {
+        List<Class> classes = null;
+
+        try {
+            classes = classDao.queryForEq("class_id", id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return classes.get(0);
     }
 }

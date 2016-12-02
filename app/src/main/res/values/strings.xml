@@ -6,7 +6,7 @@
 
     <string name="show_code"><b>Código:</b> </string>
     <string name="show_name"><b>Nome:</b> </string>
-    
+
     <string name="pick_date">Selecionar data</string>
 
     <string name="action_settings">Settings</string>
@@ -139,4 +139,5 @@
     <string name="blank_email">E-mail em branco</string>
     <string name="blank_username">Usuário em branco</string>
     <string name="blank_password">Senha em branco</string>
+    <string name="event_already_registered">Evento já cadastrado!</string>
 </resources>

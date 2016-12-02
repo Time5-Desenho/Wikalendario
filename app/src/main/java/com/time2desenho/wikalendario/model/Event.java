@@ -40,7 +40,7 @@ public class Event {
 
     public Event(String title, String description, Class eventClass, Group group, Date date) {
         setTitle(title);
-        setDescription(DESCRIPTION);
+        setDescription(description);
         setEventClass(eventClass);
         setGroup(group);
         setDate(date);
