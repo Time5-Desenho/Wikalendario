@@ -11,12 +11,15 @@ import com.time2desenho.wikalendario.model.Class;
 import com.time2desenho.wikalendario.model.Event;
 
 import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Set;
 
 public class EventsController {
 
     private EventDatabaseHelper eventDatabaseHelper;
     private Dao<Event, Long> eventDAO;
     private Class currentClass;
+    private Set<EventObserver> eventObservers = new HashSet<EventObserver>() ;
 
     public EventsController(Context context) {
         eventDatabaseHelper = new EventDatabaseHelper(context);
@@ -28,6 +31,14 @@ public class EventsController {
         }
     }
 
+    public void attachObserver(EventObserver eventObserver){
+        this.eventObservers.add(eventObserver);
+    }
+
+    public void detachObserver(EventObserver eventObserver){
+        this.eventObservers.remove(eventObserver);
+    }
+
     public void createEvent(Event event, Context context) throws IllegalArgumentException{
         Resources resources = context.getResources();
 
@@ -35,6 +46,10 @@ public class EventsController {
             eventDAO.create(event);
         }catch(SQLException e){
             sqlExceptionTreatment(e, resources);
+        }
+
+        for (EventObserver eventObserver : this.eventObservers) {
+            eventObserver.notifyNewEvent(event);
         }
     }
 

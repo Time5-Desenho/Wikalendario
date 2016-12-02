@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.time2desenho.wikalendario.R;
 import com.time2desenho.wikalendario.controller.EventsController;
+import com.time2desenho.wikalendario.controller.NotificationController;
 import com.time2desenho.wikalendario.dao.SubjectDatabaseHelper;
 import com.time2desenho.wikalendario.model.Class;
 import com.time2desenho.wikalendario.model.Event;
@@ -60,7 +61,11 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
         Intent intent = getIntent();
         String id = intent.getStringExtra("id");
 
+        NotificationController notificationController = new NotificationController(context);
+
         eventsController = new EventsController(context);
+        // Adding a observer that notifies new event
+        eventsController.attachObserver(notificationController);
         eventsController.setCurrentClass(Long.valueOf(id), context);
 
         etEventClass.setText(eventsController.getCurrentClass().getLetter() + " - " + eventsController.getCurrentClass().getTeacher());
