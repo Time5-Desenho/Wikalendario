@@ -1,5 +1,7 @@
 package com.time2desenho.wikalendario.view;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.DialogFragment;
@@ -12,6 +14,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.time2desenho.wikalendario.R;
+import com.time2desenho.wikalendario.controller.EventsController;
 import com.time2desenho.wikalendario.dao.SubjectDatabaseHelper;
 import com.time2desenho.wikalendario.model.Class;
 import com.time2desenho.wikalendario.model.Event;
@@ -36,6 +39,8 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
     private Switch switchAux;
 
     private Event event;
+    private EventsController eventsController;
+    private Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +49,15 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
 
         initViews();
 
-        setActualDate(etEventDate);
+        setCurrentDate(etEventDate);
 
+        Intent intent = getIntent();
+        String id = intent.getStringExtra("id");
+
+        eventsController = new EventsController(context);
+        eventsController.setCurrentClass(Long.valueOf(id), context);
+
+        etEventClass.setText(eventsController.getCurrentClass().getSubject().getName());
 
         switchAux.setChecked(true);
         //attach a listener to check for changes in state
@@ -98,7 +110,7 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
-    private void setActualDate(TextView textView){
+    private void setCurrentDate(TextView textView){
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
@@ -106,6 +118,7 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
 
         textView.setText(day + " / " + month + " / " + year);
     }
+
 
 
 
