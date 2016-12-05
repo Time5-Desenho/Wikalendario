@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "24.0.2"
+    buildToolsVersion "23.0.1"
 
     defaultConfig {
         applicationId "com.time2desenho.wikalendario"
@@ -34,7 +34,15 @@ dependencies {
 
     compile 'com.android.support:recyclerview-v7:23.1.1'
     compile 'com.android.support:cardview-v7:23.1.1'
-    compile 'br.com.livroandroid:android-utils:1.0.4'
+    compile 'com.roomorama:caldroid:3.0.1'
+
+    compile 'com.j256.ormlite:ormlite-core:4.48'
+    compile 'com.j256.ormlite:ormlite-android:4.48'
+    compile 'com.j256.ormlite:ormlite-jdbc:4.48'
+
+    compile 'com.google.firebase:firebase-messaging:9.4.0'
+
+    compile files('libs/mysql-connector-java-3.0.17-ga-bin.jar')
 }
 
 apply plugin: 'com.google.gms.google-services'

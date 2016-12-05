@@ -1,4 +1,4 @@
-package com.time2desenho.wikalendario;
+package com.time2desenho.wikalendario.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,20 +6,31 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.time2desenho.wikalendario.R;
+import com.time2desenho.wikalendario.controller.ClassController;
+import com.time2desenho.wikalendario.model.Class;
+import com.time2desenho.wikalendario.model.Subject;
 
+import static com.time2desenho.wikalendario.R.id.recyclerView;
 import static com.time2desenho.wikalendario.R.string.show_code;
 
 public class SubjectActivity extends AppCompatActivity {
 
-    private Subject subject;
-    private TextView codeView;
-    private TextView nameView;
+    private RecyclerView recyclerView;
+
+    private ClassController classController;
+    private Context context = this;
 
     private GoogleApiClient client;
 
@@ -28,28 +39,54 @@ public class SubjectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject2);
 
+        classController = new ClassController(context);
+
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
         String code = intent.getStringExtra("code");
+        String id = intent.getStringExtra("id");
 
-        subject = new Subject(code, name);
-        codeView = (TextView) findViewById(R.id.text_code);
-        nameView = (TextView) findViewById(R.id.text_name);
+        classController.setCurrentSubject(Long.valueOf(id));
 
-        String text = getResources().getString(show_code) + code;
-        codeView.setText(text);
+        for (Class mclass : classController.getSubjectClasses()) {
+            Log.d("CLASSES", mclass.getLetter() + " " + mclass.getSubject().getName() + " " + mclass.getTeacher());
+        }
 
-        text = "Nome: " + name;
-        nameView.setText(text);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setHasFixedSize(true);
+
+
         //    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //    setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setTitle("Disciplina");
 
-
-        Log.d("SubjectShow", subject.getName());
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        recyclerView.setAdapter(new ClassAdapter(this, classController.getSubjectClasses(), onClickClass()));
+    }
+
+    public ClassAdapter.ClassOnClickListener onClickClass(){
+        return new ClassAdapter.ClassOnClickListener(){
+            @Override
+            public void onClickClass(View view, int position){
+                 Class mClass = classController.getSubjectClasses().get(position);
+
+                Intent intent = new Intent(getContext(), EventsActivity.class);
+                intent.putExtra("id", String.valueOf(mClass.getIdClass()));
+                startActivity(intent);
+
+                /**Toast.makeText(getContext(),"Class: " + mClass.getLetter() + ":" + mClass.getTeacher()
+                        , Toast.LENGTH_SHORT).show();*/
+            }
+        };
     }
 
     public Context getContext() {

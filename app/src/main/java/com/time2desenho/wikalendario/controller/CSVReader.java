@@ -1,8 +1,10 @@
-package com.time2desenho.wikalendario;
+package com.time2desenho.wikalendario.controller;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.Log;
+
+import com.time2desenho.wikalendario.model.Subject;
 
 import java.io.InputStream;
 import java.util.ArrayList;

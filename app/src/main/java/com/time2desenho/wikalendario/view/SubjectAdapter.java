@@ -1,4 +1,4 @@
-package com.time2desenho.wikalendario;
+package com.time2desenho.wikalendario.view;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;
@@ -7,14 +7,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.time2desenho.wikalendario.R;
+import com.time2desenho.wikalendario.model.Subject;
 
 import java.util.ArrayList;
 
-/**
- * Created by joao on 03/10/16.
- */
 public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectsViewHolder> {
 
     private Context context;

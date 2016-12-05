@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_weight="10">
 
     <EditText
         android:id="@+id/name"
@@ -24,19 +25,28 @@
         android:hint="@string/email_hint"
         android:inputType="textEmailAddress" />
 
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="fill_parent"
+    <Button
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/password_hint"
-        android:inputType="textPassword" />
+        android:id="@+id/confirmation_button"
+        android:text="@string/confirmation"
+        android:layout_gravity="center" />
 
-    <EditText
-        android:id="@+id/confirm_password"
-        android:layout_width="fill_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/confirm_password_hint"
-        android:inputType="textPassword" />
+        android:layout_weight="6"/>
 
+    <Button
+        android:id="@+id/delete_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#000000"
+        android:text="DELETAR CONTA"
+        android:textSize="20dp"
+        android:textColor="#fff"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:padding="10dp"/>
 
 </LinearLayout>
