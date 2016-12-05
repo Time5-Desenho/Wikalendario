@@ -1,10 +1,6 @@
 language: android
-jdk: 
+jdk:
 	- oraclejdk8
-install: true
-script:
-	- sudo apt-get update && sudo apt-get install oracle-java-installer
-
 sudo: require
 
 android:
